@@ -1,9 +1,9 @@
 "use client";
+import React, { useState, useEffect } from 'react'; // Ajout de l'importation de React
 import Link from 'next/link';
 import Image from 'next/image';
 import LogoutButton from './LogoutButton';
 import { UserProfile } from '@auth0/nextjs-auth0/client';
-import { useState, useEffect } from 'react';
 import DynamicProfilePage from './DynamicProfilePage';
 
 interface NavbarProps {

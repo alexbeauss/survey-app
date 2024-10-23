@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSession } from '@auth0/nextjs-auth0';
 import clientPromise from '@/lib/mongodb';
 
-export async function GET() {
+export async function GET(request: Request) {
   const session = await getSession();
   if (!session || !session.user) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
@@ -11,24 +11,31 @@ export async function GET() {
   const client = await clientPromise;
   const db = client.db("questionnaires");
   const usersCollection = db.collection("users");
-  
-  // Utilisation de l'email de l'utilisateur pour récupérer ses informations
-  const user = await usersCollection.findOne({ userId: session.user.sub }); // Assurez-vous que userId est indexé
 
-  if (user) {
-    return NextResponse.json({ 
-      profile: user.profile || '', 
-      centre: user.centre || '', 
-      role: user.role || '', 
-      isCompleted: user.isCompleted || false 
-    });
-  } else {
-    return NextResponse.json({ 
-      profile: '', 
-      centre: '', 
-      role: '', 
-      isCompleted: false 
-    });
+  try {
+    const { searchParams } = new URL(request.url); // Récupération des paramètres de requête
+    const userId = searchParams.get('userId') || session.user.sub; // Utilisation de userId de la requête ou de la session
+
+    const user = await usersCollection.findOne({ userId }); // Assurez-vous que userId est indexé
+
+    if (user) {
+      return NextResponse.json({ 
+        profile: user.profile || '', 
+        centre: user.centre || '', 
+        role: user.role || '', 
+        isCompleted: user.isCompleted || false 
+      });
+    } else {
+      return NextResponse.json({ 
+        profile: '', 
+        centre: '', 
+        role: '', 
+        isCompleted: false 
+      });
+    }
+  } catch (error) {
+    console.error('Erreur lors de la récupération du profil utilisateur:', error);
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
   }
 }
 

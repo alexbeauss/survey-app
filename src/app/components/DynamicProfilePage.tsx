@@ -19,6 +19,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
 
   useEffect(() => {
     async function loadUserProfile() {
+      console.log("Début de la récupération du profil utilisateur");
       try {
         const response = await fetch('/api/user-profile');
         if (response.ok) {
@@ -26,6 +27,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
           setProfile(data.profile || '');
           setCentre(data.centre || '');
           setRole(data.role || '');
+          console.log("Profil utilisateur chargé avec succès", data);
         } else if (response.status === 404) {
           console.log('Aucun profil trouvé pour cet utilisateur.');
         } else {
