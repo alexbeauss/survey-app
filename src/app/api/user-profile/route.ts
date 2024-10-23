@@ -13,21 +13,21 @@ export async function GET() {
   const usersCollection = db.collection("users");
   
   // Utilisation de l'email de l'utilisateur pour récupérer ses informations
-  const user = await usersCollection.findOne({ userId: session.user.sub });
+  const user = await usersCollection.findOne({ userId: session.user.sub }); // Assurez-vous que userId est indexé
 
   if (user) {
     return NextResponse.json({ 
       profile: user.profile || '', 
       centre: user.centre || '', 
       role: user.role || '', 
-      isCompleted: user.isCompleted || false // Ajout de isCompleted
+      isCompleted: user.isCompleted || false 
     });
   } else {
     return NextResponse.json({ 
       profile: '', 
       centre: '', 
       role: '', 
-      isCompleted: false // Retourner false si l'utilisateur n'est pas trouvé
+      isCompleted: false 
     });
   }
 }
