@@ -41,7 +41,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!profile || !centre || !role) {
+    if (!centre || !role) {
       setModalOpen(true);
       return;
     }
