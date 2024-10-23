@@ -16,7 +16,7 @@ export default async function Home() {
     <div>
       <Navbar user={session.user} />
       <main className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold">Bienvenue, {session.user.name} !</h1>
+        <h1 className="text-3xl font-bold">Bienvenue !</h1>
         <p className="mt-4">Complétez votre profil avant de continuer.</p>
       </main>
 

@@ -30,15 +30,17 @@ export default function Questionnaire({
 }) {
   const { questions, labels } = questionnaires[questionnaireId] || { questions: [], labels: [] }; // Récupérer les questions et les étiquettes
 
-  const [moods, setMoods] = useState<number[]>(Array(10).fill(initialMood)); // Initialiser le tableau avec une longueur de 10 pour les IDs de 1 à 9
-  const sliderRef = useRef<HTMLDivElement[]>(Array(10).fill(null)); // Référencer chaque slider
+  // Initialiser le tableau moods avec une longueur égale au nombre de questions, en commençant par null
+  const [moods, setMoods] = useState<number[]>(Array(questions.length).fill(null)); // Initialiser avec null
+  const [hasMoved, setHasMoved] = useState<boolean[]>(Array(questions.length).fill(false)); // Suivre si chaque curseur a été déplacé
+  const sliderRef = useRef<HTMLDivElement[]>(Array(questions.length).fill(null)); // Référencer chaque slider
   const [currentlyDraggingIndex, setCurrentlyDraggingIndex] = useState<number | null>(null); // État pour suivre l'index du curseur en cours de déplacement
 
-  // Initialiser les humeurs à la position médiane (5)
+  // Initialiser les humeurs à la position médiane (5) lors du premier rendu
   useEffect(() => {
-    const initialMoods = Array(10).fill(5); // Position médiane
+    const initialMoods = Array(questions.length).fill(5); // Position médiane
     setMoods(initialMoods);
-  }, []);
+  }, [questions.length]); // Dépendance sur la longueur des questions
 
   const handleMoodChange = useCallback((index: number, clientX: number) => {
     const newMoods = [...moods];
@@ -46,8 +48,13 @@ export default function Questionnaire({
     const rect = sliderRef.current[index].getBoundingClientRect();
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const percentage = x / rect.width;
-    newMoods[index] = parseFloat((percentage * 10).toFixed(2));
+    newMoods[index] = parseFloat((percentage * 10).toFixed(2)); // Mettre à jour la valeur de mood
     setMoods(newMoods);
+    setHasMoved(prev => {
+      const updated = [...prev];
+      updated[index] = true; // Marquer que le curseur a été déplacé
+      return updated;
+    });
     onMoodChange(newMoods[index]); // Passer le tableau des humeurs
   }, [moods, onMoodChange]);
 
@@ -93,6 +100,12 @@ export default function Questionnaire({
   }, [labels]); // Ajouter labels comme dépendance
 
   const handleSave = async () => {
+    // Vérifier si tous les curseurs ont été déplacés
+    if (hasMoved.some(moved => !moved)) {
+      alert("Veuillez répondre à toutes les questions avant de sauvegarder."); // Alerte si des réponses sont manquantes
+      return;
+    }
+
     try {
       await axios.post('/api/answers', { moods, userId, questionnaireId, isAnswered }); // Enregistrer le tableau des humeurs
       onSave(moods[moods.length - 1]); // Appeler la fonction onSave pour mettre à jour l'état dans le parent
@@ -103,34 +116,40 @@ export default function Questionnaire({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-900 text-black dark:text-white p-4 rounded-lg shadow-lg">
-      {questions.map((question, index) => (
-        <div key={index} className="mb-4 w-full max-w-3xl mx-auto p-6 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md">
-          <p className="text-center text-xl font-semibold mb-4">{question}</p>
-          
-          <p className="text-center text-l font-semibold mt-4 italic">{getMoodText(moods[index + 1])}</p>
-          
-          <div className="relative pt-6 pb-6">
-            <div 
-              ref={(el) => { sliderRef.current[index + 1] = el as HTMLDivElement; }}
-              className="w-full bg-gray-600 rounded-full cursor-pointer"
-              style={{ height: '12px' }}
-              onMouseDown={(e) => handleStart(e, index + 1)}
-              onTouchStart={(e) => handleStart(e, index + 1)}
-            ></div>
-            <div
-              className="absolute top-1/2 w-8 h-8 bg-blue-500 border-2 border-blue-500 rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md"
-              style={{ left: `${moods[index + 1] * 10}%`, top: '50%' }}
-              onMouseDown={(e) => handleStart(e, index + 1)}
-              onTouchStart={(e) => handleStart(e, index + 1)}
-            ></div>
-            <div className="flex justify-between text-xs text-gray-400 absolute w-full" style={{top: '80%'}}>
-              <span className="absolute left-0 transform -translate-x-5">{labels[0]}</span> 
-              <span className="absolute right-0 transform translate-x-5">{labels[labels.length - 1]}</span> 
+    <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 rounded-lg shadow-lg">
+      {isAnswered ? (
+        <p className="text-center text-xl font-semibold">
+          Vous avez répondu à toutes les questions de ce questionnaire.
+        </p>
+      ) : (
+        questions.map((question, index) => (
+          <div key={index} className="mb-4 w-full max-w-3xl mx-auto p-6 bg-gray-100 dark:bg-gray-900 rounded-lg shadow-md">
+            <p className="text-center text-xl font-semibold mb-4">{question}</p>
+            
+            <p className="text-center text-l font-semibold mt-4 italic">{getMoodText(moods[index] ?? 0)}</p>
+            
+            <div className="relative pt-6 pb-6">
+              <div 
+                ref={(el) => { sliderRef.current[index] = el as HTMLDivElement; }}
+                className="w-full bg-gray-600 rounded-full cursor-pointer"
+                style={{ height: '12px' }}
+                onMouseDown={(e) => handleStart(e, index)}
+                onTouchStart={(e) => handleStart(e, index)}
+              ></div>
+              <div
+                className="absolute top-1/2 w-8 h-8 bg-blue-500 border-2 border-blue-500 rounded-full transform -translate-y-1/2 -translate-x-1/2 cursor-pointer shadow-md"
+                style={{ left: `${(moods[index] ?? 0) * 10}%`, top: '50%' }}
+                onMouseDown={(e) => handleStart(e, index)}
+                onTouchStart={(e) => handleStart(e, index)}
+              ></div>
+              <div className="flex justify-between text-xs text-gray-400 absolute w-full" style={{top: '80%'}}>
+                <span className="absolute left-0 transform -translate-x-5">{labels[0]}</span> 
+                <span className="absolute right-0 transform translate-x-5">{labels[labels.length - 1]}</span> 
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))
+      )}
       {!isAnswered && (
         <button 
           onClick={handleSave} 

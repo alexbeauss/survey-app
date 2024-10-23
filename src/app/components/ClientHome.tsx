@@ -76,7 +76,7 @@ const ClientHome: React.FC<ClientHomeProps> = ({ questionnaires, userId }) => {
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-8 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"> {/* Styles pour le mode clair et sombre */}
+          <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-8 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative"> {/* Styles pour le mode clair et sombre */}
             <span 
               className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer text-3xl z-10" // Augmenter la taille de la croix et s'assurer qu'elle est au-dessus
               onClick={closeModal}

@@ -14,8 +14,8 @@ export default async function Home() {
   
   const questionnaires = [
     { id: 1, title: 'Apprenance', icon: '/img/apprenance.jpeg', content: 'Contenu du questionnaire 1' },
-    { id: 2, title: 'Test 2', icon: '/img/quest2.jpeg', content: 'Contenu du questionnaire 2' },
-    { id: 3, title: 'Questionnaire 3', icon: '/img/quest3.jpeg', content: 'Contenu du questionnaire 3' },
+    { id: 2, title: 'Test 2', icon: '/img/quest3.jpeg', content: 'Contenu du questionnaire 2' },
+    { id: 3, title: 'Questionnaire 3', icon: '/img/quest2.jpeg', content: 'Contenu du questionnaire 3' },
   ];
 
   // Récupération des réponses pour chaque questionnaire
