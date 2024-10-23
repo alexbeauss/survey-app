@@ -1,0 +1,36 @@
+{
+  "1": {
+    "questions": [
+      "Je cherche activement des occasions de me former.",
+      "Apprendre me procure une joie intense.",
+      "Je saisis absolument toutes les occasions d’apprendre.",
+      "Il est vital de découvrir tous les jours de nouvelles choses.",
+      "Je prends délibérément du temps pour apprendre de nouvelles choses.",
+      "Il faut apprendre tous les jours pour bien vivre.",
+      "Pour moi, se former est un grand plaisir.",
+      "Il est primordial d’acquérir quotidiennement de nouvelles connaissances.",
+      "Je suis sincèrement heureux quand j’apprends."
+    ],
+    "labels": [
+      "Pas du tout d'accord",
+      "Pas d'accord",
+      "Neutre",
+      "D'accord",
+      "Tout à fait d'accord"
+    ]
+  },
+  "2": {
+      "questions": [
+        "Je m'appelle Elsa."
+      ],
+      "labels": [
+        "Pas du tout d'accord",
+        "Pas d'accord",
+        "Neutre",
+        "D'accord",
+        "Tout à fait d'accord"
+      ]
+    }
+}
+    
+
