@@ -30,8 +30,7 @@ export default function Navbar({ user }: NavbarProps) {
 
   // Assurez-vous que user.picture a une valeur par défaut
   const profilePicture = user.picture || '/default-avatar.png';
-  const userName = user.name || 'Utilisateur'; // Valeur par défaut pour le nom
-
+  
   return (
     <nav className="bg-gradient-to-r from-blue-500 to-blue-900 dark:from-blue-600 dark:to-blue-800 p-4">
       <div className="w-full max-w-7xl mx-auto flex justify-between items-center">

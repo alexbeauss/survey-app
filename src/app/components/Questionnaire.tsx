@@ -12,7 +12,6 @@ import questionnairesData from '../data/questionnaires.json'; // Importer le fic
 const questionnaires: QuestionnairesType = questionnairesData; // Utiliser l'importation
 
 export default function Questionnaire({ 
-  initialMood, 
   onMoodChange, 
   userId, 
   questionnaireId, 
