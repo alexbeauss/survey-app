@@ -15,7 +15,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const centres = ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille'];
-  const roles = ['formateur', 'apprenant'];
+  const roles = ['Formateur', 'Apprenant'];
 
   useEffect(() => {
     async function loadUserProfile() {
@@ -76,9 +76,14 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
         
 
         <div className="flex flex-col mb-4">
-          <label htmlFor="centre" className="block mb-2 text-lg font-semibold">
+          <label htmlFor="centre" className="block mb-2 text-lg font-semibold flex items-center">
             Centre
-            {centre && <span className="ml-2 bg-green-500 text-white rounded-full p-1 flex items-center justify-center w-6 h-6">✔️</span>}
+            {centre && 
+              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>}
           </label>
           <select
             id="centre"
@@ -94,9 +99,14 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
         </div>
 
         <div className="flex flex-col mb-4">
-          <label htmlFor="role" className="block mb-2 text-lg font-semibold">
+          <label htmlFor="role" className="block mb-2 text-lg font-semibold flex items-center">
             Rôle
-            {role && <span className="ml-2 bg-green-500 text-white rounded-full p-1 flex items-center justify-center w-6 h-6">✔️</span>}
+            {role &&
+              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </span>}
           </label>
           <select
             id="role"

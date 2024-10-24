@@ -1,9 +1,13 @@
+// /src/pages/api/user-profile.ts
+
 import { NextResponse } from 'next/server';
 import { getSession } from '@auth0/nextjs-auth0';
 import clientPromise from '@/lib/mongodb';
 
 export async function GET(request: Request) {
-  const session = await getSession();
+  const session = await getSession(); // Utiliser getSession sans passer la requête
+
+  console.log(session); // Vérifie si la session est valide
   if (!session || !session.user) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
   }
@@ -40,7 +44,8 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const session = await getSession();
+  const session = await getSession(); // Utiliser getSession sans passer la requête
+
   if (!session || !session.user) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
   }
@@ -52,11 +57,16 @@ export async function POST(request: Request) {
   const db = client.db("questionnaires");
   const usersCollection = db.collection("users");
 
-  await usersCollection.updateOne(
-    { email: session.user.email }, // Utilisation de l'email pour identifier l'utilisateur
-    { $set: { profile, centre, role, userId, isCompleted } }, // Ajout de isCompleted dans la mise à jour
-    { upsert: true }
-  );
+  try {
+    await usersCollection.updateOne(
+      { email: session.user.email }, // Utilisation de l'email pour identifier l'utilisateur
+      { $set: { profile, centre, role, userId, isCompleted } }, // Ajout de isCompleted dans la mise à jour
+      { upsert: true }
+    );
 
-  return NextResponse.json({ message: 'Profil sauvegardé avec succès' });
+    return NextResponse.json({ message: 'Profil sauvegardé avec succès' });
+  } catch (error) {
+    console.error('Erreur lors de la sauvegarde du profil utilisateur:', error);
+    return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });
+  }
 }

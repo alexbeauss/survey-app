@@ -11,6 +11,18 @@ import questionnairesData from '../data/questionnaires.json'; // Importer le fic
 
 const questionnaires: QuestionnairesType = questionnairesData; // Utiliser l'importation
 
+interface QuestionnaireProps {
+  initialMood: number;
+  onMoodChange: (mood: number) => void;
+  userId: string;
+  questionnaireId: string;
+  isAnswered: boolean;
+  onClose: () => void;
+  onSave: (data: number[]) => void; // Spécifiez le type de données
+  questions: string[]; // Remplacez any par string[]
+  labels: string[]; // Remplacez any par string[]
+}
+
 export default function Questionnaire({ 
   onMoodChange, 
   userId, 
@@ -18,15 +30,7 @@ export default function Questionnaire({
   isAnswered, 
   onClose, 
   onSave 
-}: { 
-  initialMood: number; 
-  onMoodChange: (mood: number) => void; 
-  userId: string; 
-  questionnaireId: string; 
-  isAnswered: boolean; 
-  onClose: () => void; 
-  onSave: (mood: number) => void; 
-}) {
+}: QuestionnaireProps) {
   const { questions, labels } = questionnaires[questionnaireId] || { questions: [], labels: [] }; // Récupérer les questions et les étiquettes
 
   // Initialiser le tableau moods avec une longueur égale au nombre de questions, en commençant par null
@@ -94,7 +98,7 @@ export default function Questionnaire({
   }, [handleMove, handleEnd]);
 
   const getMoodText = useCallback((mood: number) => {
-    const index = Math.floor((mood / 10) * (labels.length - 1)); // Calculer l'index en fonction du nombre de labels
+    const index = Math.floor(((mood) / 10) * (labels.length - 1)); // Calculer l'index en fonction du nombre de labels
     return labels[Math.min(index, labels.length - 1)]; // S'assurer que l'index ne dépasse pas la longueur des labels
   }, [labels]); // Ajouter labels comme dépendance
 
@@ -107,7 +111,7 @@ export default function Questionnaire({
 
     try {
       await axios.post('/api/answers', { moods, userId, questionnaireId, isAnswered }); // Enregistrer le tableau des humeurs
-      onSave(moods[moods.length - 1]); // Appeler la fonction onSave pour mettre à jour l'état dans le parent
+      onSave(moods); // Passer le tableau moods au lieu d'un seul nombre
       onClose(); // Fermer la modale après la sauvegarde
     } catch (error) {
       console.error('Erreur lors de la sauvegarde des réponses:', error);
@@ -115,7 +119,7 @@ export default function Questionnaire({
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 rounded-lg shadow-lg">
+    <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 rounded-lg">
       {isAnswered ? (
         <p className="text-center text-xl font-semibold">
           Vous avez répondu à toutes les questions de ce questionnaire.
@@ -130,8 +134,8 @@ export default function Questionnaire({
             <div className="relative pt-6 pb-6">
               <div 
                 ref={(el) => { sliderRef.current[index] = el as HTMLDivElement; }}
-                className="w-full bg-gray-600 rounded-full cursor-pointer"
-                style={{ height: '12px' }}
+                className="w-full bg-gray-400 rounded-full cursor-pointer"
+                style={{ height: '10px' }}
                 onMouseDown={(e) => handleStart(e, index)}
                 onTouchStart={(e) => handleStart(e, index)}
               ></div>

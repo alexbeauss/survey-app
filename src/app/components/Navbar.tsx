@@ -35,7 +35,7 @@ export default function Navbar({ user }: NavbarProps) {
     <nav className="bg-gradient-to-r from-blue-500 to-blue-900 dark:from-blue-600 dark:to-blue-800 p-4">
       <div className="w-full max-w-7xl mx-auto flex justify-between items-center">
         <Link href="/" className="font-mono text-white text-2xl font-bold">
-          Survey
+          survey
         </Link>
         <div className="flex items-center">
           <div className="flex items-center ml-6 mr-6 relative">
