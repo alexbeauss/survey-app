@@ -14,6 +14,7 @@ interface QuestionnaireType {
   mood?: number; // Ajout de mood pour stocker la valeur de l'humeur
   questions: string[]; // Assurez-vous que questions est toujours un tableau de string
   labels: string[]; // Assurez-vous que labels est toujours un tableau de string
+  description: string; // Ajout de description
 }
 
 // Définir les types pour les données de profil utilisateur
@@ -107,26 +108,27 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
     <>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {questionnaires.map((q) => (
-          <div key={q.id} className="relative w-full aspect-square"> {/* Utilisation de aspect-square pour garder les éléments carrés */}
-          <div 
-            className="p-2 border border-gray-300 rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer relative" 
-            onClick={() => openModal(q)} // Ajout de l'événement de clic ici
-          >
-            <div className="relative w-full h-72"> {/* Ajustement de la hauteur pour garder les images en entier */}
-              <Image 
-                src={q.icon} 
-                alt={q.title} 
-                fill 
-                style={{ objectFit: 'cover' }} 
-                className="rounded-lg" 
-              />
+          <div key={q.id} className="relative w-full aspect-square">
+            <div 
+              className="p-2 border border-gray-300 rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer relative" 
+              onClick={() => openModal(q)}
+            >
+              <div className="relative w-full h-72">
+                <Image 
+                  src={q.icon} 
+                  alt={q.title} 
+                  fill 
+                  style={{ objectFit: 'cover' }} 
+                  className="rounded-lg" 
+                />
+              </div>
+              <h2 className="text-lg mt-1 font-semibold text-center">{q.title}</h2>
+              <p className="text-center text-sm text-gray-600">{q.questions.length} questions</p>
+              {q.isAnswered && (
+                <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">Répondu</span>
+              )}
             </div>
-            <h2 className="text-lg mt-1 font-semibold text-center">{q.title}</h2> {/* Réduction de la taille du texte */}
-            {q.isAnswered && ( // Afficher l'indicateur si l'utilisateur a répondu
-              <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">Répondu</span>
-            )}
           </div>
-        </div>
         ))}
       </div>
 
@@ -134,6 +136,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" role="dialog" aria-modal="true">
           <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-8 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
             <span className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer text-3xl z-10" onClick={closeModal} aria-label="Fermer la modale">&times;</span>
+            <p className="mb-4 dark:text-white text-gray-600">{selectedQuestionnaire.description}</p> {/* Affichage de la description */}
             <Questionnaire 
               initialMood={selectedQuestionnaire.mood || 0}
               onMoodChange={(mood: number) => handleMoodChange(selectedQuestionnaire.id, mood)}

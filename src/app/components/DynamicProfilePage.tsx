@@ -8,14 +8,18 @@ interface DynamicProfilePageProps {
 
 export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
   console.log(user); // Utilisation de 'user' pour éviter l'erreur
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [profile, setProfile] = useState('');
-  const [centre, setCentre] = useState('');
-  const [role, setRole] = useState('');
+  const [ofA, setOfA] = useState('');
+  const [gender, setGender] = useState('');
+  const [age, setAge] = useState<number | ''>(''); // Typeage pour l'âge
   const [saveStatus, setSaveStatus] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
-
-  const centres = ['Paris', 'Lyon', 'Marseille', 'Bordeaux', 'Lille'];
-  const roles = ['Formateur', 'Apprenant'];
+ 
+  const profiles = ['Profil 1', 'Profil 2', 'Profil 3']; // Remplacez par vos options réelles
+  const ofAOptions = ['OF-A 1', 'OF-A 2', 'OF-A 3']; // Remplacez par vos options réelles
+  const genres = ['Homme', 'Femme', 'Autre']; // Remplacez par vos options réelles
 
   useEffect(() => {
     async function loadUserProfile() {
@@ -24,9 +28,12 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
         const response = await fetch('/api/user-profile');
         if (response.ok) {
           const data = await response.json();
+          setFirstName(data.firstName || '');
+          setLastName(data.lastName || '');
           setProfile(data.profile || '');
-          setCentre(data.centre || '');
-          setRole(data.role || '');
+          setOfA(data.ofA || ''); // Récupération de 'ofA'
+          setGender(data.gender || ''); // Récupération de 'gender'
+          setAge(data.age || ''); // Récupération de 'age'
           console.log("Profil utilisateur chargé avec succès", data);
         } else if (response.status === 404) {
           console.log('Aucun profil trouvé pour cet utilisateur.');
@@ -43,15 +50,17 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!centre || !role) {
+    // Vérification des champs
+    if (!firstName || !lastName || !profile || !ofA || !gender || age === '') {
       setModalOpen(true);
       return;
     }
+    
     try {
       const response = await fetch('/api/user-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ profile, centre, role, isCompleted: true }),
+        body: JSON.stringify({ firstName, lastName, profile, ofA, gender, age, isCompleted: true }),
       });
       if (response.ok) {
         setSaveStatus('Profil sauvegardé avec succès !');
@@ -71,14 +80,51 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
 
   return (
     <div className="container mx-auto p-6 dark:bg-gray-900 dark:text-white">
-      
       <form onSubmit={handleSubmit} className="mt-4 space-y-6">
-        
+        <div className="flex flex-col mb-4">
+          <label htmlFor="firstName" className="block mb-2 text-lg font-semibold flex items-center">
+            Prénom
+            {firstName && 
+              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>}
+          </label>
+          <input
+            id="firstName"
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          />
+        </div>
 
         <div className="flex flex-col mb-4">
-          <label htmlFor="centre" className="block mb-2 text-lg font-semibold flex items-center">
-            Centre
-            {centre && 
+          <label htmlFor="lastName" className="block mb-2 text-lg font-semibold flex items-center">
+            Nom
+            {lastName && 
+              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>}
+          </label>
+          <input
+            id="lastName"
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col mb-4">
+          <label htmlFor="profile" className="block mb-2 text-lg font-semibold flex items-center">
+            Profil
+            {profile && 
               <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -86,41 +132,87 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
               </span>}
           </label>
           <select
-            id="centre"
-            value={centre}
-            onChange={(e) => setCentre(e.target.value)}
+            id="profile"
+            value={profile}
+            onChange={(e) => setProfile(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
           >
-            <option value="">Sélectionnez un centre</option>
-            {centres.map((c) => (
-              <option key={c} value={c}>{c}</option>
+            <option value="">Sélectionnez un profil</option>
+            {profiles.map((p) => (
+              <option key={p} value={p}>{p}</option>
             ))}
           </select>
         </div>
 
         <div className="flex flex-col mb-4">
-          <label htmlFor="role" className="block mb-2 text-lg font-semibold flex items-center">
-            Rôle
-            {role &&
+          <label htmlFor="ofA" className="block mb-2 text-lg font-semibold flex items-center">
+            OF-A
+            {ofA && 
               <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </span>}
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>}
           </label>
           <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
+            id="ofA"
+            value={ofA}
+            onChange={(e) => setOfA(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
           >
-            <option value="">Sélectionnez un rôle</option>
-            {roles.map((r) => (
-              <option key={r} value={r}>{r}</option>
+            <option value="">Sélectionnez OF-A</option>
+            {ofAOptions.map((o) => (
+              <option key={o} value={o}>{o}</option>
             ))}
           </select>
         </div>
-        
+
+        <div className="flex flex-col mb-4">
+          <label htmlFor="gender" className="block mb-2 text-lg font-semibold flex items-center">
+            Genre
+            {gender && 
+              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>}
+          </label>
+          <select
+            id="gender"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          >
+            <option value="">Sélectionnez un genre</option>
+            {genres.map((g) => (
+              <option key={g} value={g}>{g}</option>
+            ))}
+          </select>
+        </div>
+
+        <div className="flex flex-col mb-4">
+          <label htmlFor="age" className="block mb-2 text-lg font-semibold flex items-center">
+            Âge
+            {age && 
+              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>}
+          </label>
+          <input
+            id="age"
+            type="number"
+            value={age}
+            onChange={(e) => setAge(Number(e.target.value))}
+            className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+            required
+          />
+        </div>
+
         <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-200">
           Sauvegarder le profil
         </button>

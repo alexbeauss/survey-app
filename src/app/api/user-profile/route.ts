@@ -27,14 +27,24 @@ export async function GET(request: Request) {
         profile: user.profile || '', 
         centre: user.centre || '', 
         role: user.role || '', 
-        isCompleted: user.isCompleted || false 
+        isCompleted: user.isCompleted || false,
+        firstName: user.firstName || '', // Ajout du prénom
+        lastName: user.lastName || '',   // Ajout du nom
+        ofA: user.ofA || '',             // Ajout de OF-A
+        gender: user.gender || '',       // Ajout du genre
+        age: user.age || null            // Ajout de l'âge
       });
     } else {
       return NextResponse.json({ 
         profile: '', 
         centre: '', 
         role: '', 
-        isCompleted: false 
+        isCompleted: false,
+        firstName: '', 
+        lastName: '', 
+        ofA: '', 
+        gender: '', 
+        age: null 
       });
     }
   } catch (error) {
@@ -50,7 +60,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
   }
 
-  const { profile, centre, role, isCompleted } = await request.json(); // Récupération des données, y compris isCompleted
+  const { firstName, lastName, profile, ofA, gender, age, isCompleted } = await request.json(); // Récupération des nouveaux champs
   const userId = session.user.sub; // Récupération du userId à partir de la session
 
   const client = await clientPromise;
@@ -60,7 +70,18 @@ export async function POST(request: Request) {
   try {
     await usersCollection.updateOne(
       { email: session.user.email }, // Utilisation de l'email pour identifier l'utilisateur
-      { $set: { profile, centre, role, userId, isCompleted } }, // Ajout de isCompleted dans la mise à jour
+      { 
+        $set: { 
+          firstName, 
+          lastName, 
+          profile, 
+          ofA, 
+          gender, 
+          age, 
+          userId, 
+          isCompleted 
+        } 
+      }, // Ajout des nouveaux champs dans la mise à jour
       { upsert: true }
     );
 

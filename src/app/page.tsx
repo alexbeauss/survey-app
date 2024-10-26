@@ -20,7 +20,7 @@ export default async function Home() {
         <p className="mt-4">Complétez votre profil avant de continuer.</p>
       </main>
 
-        <div className="container mx-auto w-2/3 rounded-lg bg-gray-50 shadow-md mt-4">
+        <div className="container mx-auto w-1/2 rounded-lg bg-gray-50 shadow-md mt-4">
           <DynamicProfilePage user={session.user} />
         </div>
         

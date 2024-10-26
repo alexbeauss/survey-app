@@ -1,8 +1,11 @@
 {
   "1": {
-    "title": "Apprenance",
+    "title": "Apprenance (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
     "icon": "/img/apprenance.jpeg",
     "roles": ["Apprenant"],
+    "description": "Cette échelle d'apprenance mesure votre niveau d'apprenance. Elle vous permettra de comprendre votre niveau d'apprenance et de vous donner des pistes pour progresser.",
     "questions": [
       "Je cherche activement des occasions de me former.",
       "Apprendre me procure une joie intense.",
