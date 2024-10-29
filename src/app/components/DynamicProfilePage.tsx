@@ -10,14 +10,14 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
   console.log(user); // Utilisation de 'user' pour éviter l'erreur
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [profile, setProfile] = useState('');
+  const [role, setRole] = useState('');
   const [ofA, setOfA] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState<number | ''>(''); // Typeage pour l'âge
   const [saveStatus, setSaveStatus] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
  
-  const profiles = ['Profil 1', 'Profil 2', 'Profil 3']; // Remplacez par vos options réelles
+  const profiles = ['Formateur', 'Apprenant']; // Remplacez par vos options réelles
   const ofAOptions = ['OF-A 1', 'OF-A 2', 'OF-A 3']; // Remplacez par vos options réelles
   const genres = ['Homme', 'Femme', 'Autre']; // Remplacez par vos options réelles
 
@@ -30,7 +30,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
           const data = await response.json();
           setFirstName(data.firstName || '');
           setLastName(data.lastName || '');
-          setProfile(data.profile || '');
+          setRole(data.role || '');
           setOfA(data.ofA || ''); // Récupération de 'ofA'
           setGender(data.gender || ''); // Récupération de 'gender'
           setAge(data.age || ''); // Récupération de 'age'
@@ -51,7 +51,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // Vérification des champs
-    if (!firstName || !lastName || !profile || !ofA || !gender || age === '') {
+    if (!firstName || !lastName || !role || !ofA || !gender || age === '') {
       setModalOpen(true);
       return;
     }
@@ -60,7 +60,7 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
       const response = await fetch('/api/user-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, profile, ofA, gender, age, isCompleted: true }),
+        body: JSON.stringify({ firstName, lastName, role, ofA, gender, age, isCompleted: true }),
       });
       if (response.ok) {
         setSaveStatus('Profil sauvegardé avec succès !');
@@ -123,8 +123,8 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
 
         <div className="flex flex-col mb-4">
           <label htmlFor="profile" className="block mb-2 text-lg font-semibold flex items-center">
-            Profil
-            {profile && 
+            Rôle
+            {role && 
               <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
@@ -132,9 +132,9 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
               </span>}
           </label>
           <select
-            id="profile"
-            value={profile}
-            onChange={(e) => setProfile(e.target.value)}
+            id="role"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
             className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           >

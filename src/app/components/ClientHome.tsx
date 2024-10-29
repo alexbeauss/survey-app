@@ -15,6 +15,7 @@ interface QuestionnaireType {
   questions: string[]; // Assurez-vous que questions est toujours un tableau de string
   labels: string[]; // Assurez-vous que labels est toujours un tableau de string
   description: string; // Ajout de description
+  consigne: string; // Ajout de consigne
 }
 
 // Définir les types pour les données de profil utilisateur
@@ -136,7 +137,8 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" role="dialog" aria-modal="true">
           <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-8 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
             <span className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer text-3xl z-10" onClick={closeModal} aria-label="Fermer la modale">&times;</span>
-            <p className="mb-4 dark:text-white text-gray-600">{selectedQuestionnaire.description}</p> {/* Affichage de la description */}
+            <p className="mb-4 dark:text-white text-gray-600">{selectedQuestionnaire.description}</p>
+            <p className="mb-4 dark:text-white text-black font-bold italic underline decoration-sky-500">{selectedQuestionnaire.consigne}</p>
             <Questionnaire 
               initialMood={selectedQuestionnaire.mood || 0}
               onMoodChange={(mood: number) => handleMoodChange(selectedQuestionnaire.id, mood)}

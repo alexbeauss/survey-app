@@ -154,12 +154,14 @@ export default function Questionnaire({
         ))
       )}
       {!isAnswered && (
-        <button 
-          onClick={handleSave} 
-          className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500"
-        >
-          Sauvegarder les réponses
-        </button>
+        <div className="flex justify-center">
+          <button 
+            onClick={handleSave} 
+            className="mt-4 bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-500"
+          >
+            Sauvegarder les réponses
+          </button>
+        </div>
       )}
     </div>
   );

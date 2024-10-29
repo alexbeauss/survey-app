@@ -60,7 +60,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Non autorisé' }, { status: 401 });
   }
 
-  const { firstName, lastName, profile, ofA, gender, age, isCompleted } = await request.json(); // Récupération des nouveaux champs
+  const { firstName, lastName, role, ofA, gender, age, isCompleted } = await request.json(); // Récupération des nouveaux champs
   const userId = session.user.sub; // Récupération du userId à partir de la session
 
   const client = await clientPromise;
@@ -74,7 +74,7 @@ export async function POST(request: Request) {
         $set: { 
           firstName, 
           lastName, 
-          profile, 
+          role, 
           ofA, 
           gender, 
           age, 

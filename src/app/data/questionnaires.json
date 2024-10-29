@@ -5,7 +5,8 @@
     "endDate": "2024-12-31",
     "icon": "/img/apprenance.jpeg",
     "roles": ["Apprenant"],
-    "description": "Cette échelle d'apprenance mesure votre niveau d'apprenance. Elle vous permettra de comprendre votre niveau d'apprenance et de vous donner des pistes pour progresser.",
+    "description": "Cette échelle mesure votre niveau d'apprenance. L'apprenance est un ensemble de comportements qui permettent de s'approprier de nouvelles connaissances, de nouvelles compétences ou de nouvelles attitudes.",
+    "consigne": "Pour chaque affirmation, positionnez le curseur sur la réponse qui vous convient le mieux. Répondez spontanément et sans réfléchir.",
     "questions": [
       "Je cherche activement des occasions de me former.",
       "Apprendre me procure une joie intense.",
@@ -26,18 +27,49 @@
     ]
   },
   "2": {  
-    "title": "Quest 2",
+    "title": "Motivations (T0)",
     "icon": "/img/quest2.jpeg",
-    "roles": ["Apprenant","Formateur"],
+    "roles": ["Formateur"],
+    "description": "Cette échelle de motivations mesure votre niveau de motivations. Elle vous permettra de comprendre votre niveau de motivations et de vous donner des pistes pour progresser.",
+    "consigne": "Indiquez dans quelle mesure chacun des énoncés suivants correspond aux raisons pour lesquelles vous faites ce que vous faites. En général, je fais des choses...",
     "questions": [
-      "Je m'appelle Alex."
+      "... pour ressentir des émotions que j'aime.",
+      "... parce que je ne veux pas décevoir certaines personnes.",
+      "... pour m'aider à devenir ce que je veux être plus tard.",
+      "... parce que j'aime faire des découvertes intéressantes.",
+      "... parce que je m'en voudrais de ne pas les faire.",
+      "... parce que j'éprouve du plaisir à me sentir de plus en plus habile.",
+      "... bien que je ne vois pas ce que cela me donne.",
+      "... parce que je vis une sensation de bien-être pendant que je les fais.",
+      "... parce que je veux être mieux considéré-e par certaines personnes.",
+      "... parce que je les choisies comme moyens pour réaliser mes projets.",
+      "... pour le plaisir d'acquérir des connaissances.",
+      "... parce que je me sentirais coupable de ne pas les faire.",
+      "... parce que je ressens du plaisir à maîtriser ce que je fais.",
+      "... bien que cela ne fasse pas de différence que je les fasse ou non.",
+      "... parce que j'éprouve des sensations plaisantes en les faisant.",
+      "... pour montrer aux autres ce que je vaux.",
+      "... parce que je les choisis pour obtenir ce que je désire.",
+      "... parce que j'y trouve de nouveaux éléments intéressants à apprendre.",
+      "... parce que je m'oblige à les faire.",
+      "... parce que j'éprouve de la satisfaction à essayer d'exceller dans ce que je fais.",
+      "... même si je n'ai pas de bonnes raisons de les faire.",
+      "... pour les sentiments agréables que je ressens.",
+      "... parce que je souhaite obtenir du prestige.",
+      "... parce que je choisis de m'investir dans ce qui est important pour moi.",
+      "... parce que j'ai du plaisir en apprenant sur différents faits intéressants.",
+      "... parce que je me sentirais mal de ne pas les faire.",
+      "... parce que je ressens du plaisir à me surpasser.",
+      "... même si je ne crois pas que cela en vaille la peine."
     ],
     "labels": [
-      "Pas du tout d'accord",
-      "Pas d'accord",
-      "Neutre",
-      "D'accord",
-      "Tout à fait d'accord"
+      "Ne correspond pas du tout",
+      "Correspond très peu",
+      "Correspond un peu",
+      "Correspond moyennement",
+      "Correspond assez",
+      "Correspond beaucoup",
+      "Correspond exactement"
     ]
     }
   
