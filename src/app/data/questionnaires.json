@@ -4,7 +4,9 @@
     "startDate": "2024-01-01",
     "endDate": "2024-12-31",
     "icon": "/img/apprenance.jpeg",
-    "roles": ["Apprenant"],
+    "roles": [
+      "Apprenant"
+    ],
     "description": "Cette échelle mesure votre niveau d'apprenance. L'apprenance est un ensemble de comportements qui permettent de s'approprier de nouvelles connaissances, de nouvelles compétences ou de nouvelles attitudes.",
     "consigne": "Pour chaque affirmation, positionnez le curseur sur la réponse qui vous convient le mieux. Répondez spontanément et sans réfléchir.",
     "questions": [
@@ -26,10 +28,14 @@
       "Tout à fait d'accord"
     ]
   },
-  "2": {  
+  "2": {
     "title": "Motivations (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
     "icon": "/img/emg.jpeg",
-    "roles": ["Formateur"],
+    "roles": [
+      "Formateur"
+    ],
     "description": "Cette échelle de motivations mesure votre niveau de motivations. Elle vous permettra de comprendre votre niveau de motivations et de vous donner des pistes pour progresser.",
     "consigne": "Indiquez dans quelle mesure chacun des énoncés suivants correspond aux raisons pour lesquelles vous faites ce que vous faites. En général, je fais des choses...",
     "questions": [
@@ -71,8 +77,33 @@
       "Correspond beaucoup",
       "Correspond exactement"
     ]
-    }
-  
+  },
+  "3": {
+    "title": "Efficacité collective (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "icon": "/img/evos.jpeg",
+    "roles": [
+      "Formateur"
+    ],
+    "description": "Cette échelle mesure votre niveau d'efficacité collective.",
+    "consigne": "Complétez chacune des phrases suivantes en indiquant ce que vous pensez sincèrement de la façon dont vous travaillez ensemble :",
+    "questions": [
+      "Pour moi, la façon dont nous parlons entre nous est ... ",
+      "Pour moi, la façon dont on se serre les coudes est ... ",
+      "Pour moi, ce que nous faisons les uns pour les autres est ... ",
+      "Pour moi, le sentiment entre nous est ... ",
+      "Pour moi, la façon dont nous décidons de ce qui doit être fait est ... ",
+      "Pour moi, la façon dont nous reconnaissons ce qui nous aidera à atteindre nos objectifs est ... ",
+      "Pour moi, la façon dont nous prenons des décisions est ... ",
+      "Pour moi, la façon dont nous trouvons des solutions aux problèmes est ... ",
+      "Pour moi, la façon dont nous nous adaptons au changement est ..."
+    ],
+    "labels": [
+      "Très mauvais·e",
+      "Mauvais·e",
+      "Bon·ne",
+      "Très bon·ne"
+    ]
+  }
 }
-    
-

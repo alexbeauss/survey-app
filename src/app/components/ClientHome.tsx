@@ -16,6 +16,8 @@ interface QuestionnaireType {
   labels: string[]; // Assurez-vous que labels est toujours un tableau de string
   description: string; // Ajout de description
   consigne: string; // Ajout de consigne
+  startDate: string; // Ajout
+  endDate: string;   // Ajout
 }
 
 // Définir les types pour les données de profil utilisateur
@@ -53,6 +55,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
 
       if (profileResponse.ok) {
         const userRole = profileData.role;
+        const currentDate = new Date();
 
         const answersPromises = Object.entries(questionnairesData).map(async ([id, questionnaire]) => {
           if (id) {
@@ -60,18 +63,23 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
             const answerData = await answerResponse.json();
             return { ...questionnaire, id: Number(id), isAnswered: answerData.isAnswered || false };
           }
-          console.warn('Questionnaire does not have an id:', questionnaire);
           return null;
         });
 
         const answers = await Promise.all(answersPromises);
 
-        const filteredQuestionnaires = answers.filter((q): q is QuestionnaireType => 
-          q !== null && 
-          q.roles.includes(userRole) && 
-          Array.isArray(q.questions) && // Vérifiez que questions est un tableau
-          Array.isArray(q.labels) // Vérifiez que labels est un tableau
-        );
+        const filteredQuestionnaires = answers.filter((q): q is QuestionnaireType => {
+          if (!q) return false;
+          
+          const startDate = new Date(q.startDate);
+          const endDate = new Date(q.endDate);
+          
+          return q.roles.includes(userRole) && 
+                 Array.isArray(q.questions) && 
+                 Array.isArray(q.labels) &&
+                 currentDate >= startDate && 
+                 currentDate <= endDate;
+        });
 
         setQuestionnaires(filteredQuestionnaires as QuestionnaireType[]);
       } else {
