@@ -26,6 +26,8 @@ interface UserProfile {
   centre: string;
   role: string;
   isCompleted: boolean;
+  firstName: string;
+  lastName: string;
 }
 
 const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
@@ -33,6 +35,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
   const [selectedQuestionnaire, setSelectedQuestionnaire] = useState<QuestionnaireType | null>(null);
   const [questionnaires, setQuestionnaires] = useState<QuestionnaireType[]>([]); // État pour les questionnaires
   const [loading, setLoading] = useState(true); // Loading state
+  const [displayName, setDisplayName] = useState('Utilisateur'); // Ajout de l'état displayName
 
   // Fonction pour ouvrir la modale
   const openModal = (questionnaire: QuestionnaireType) => {
@@ -54,6 +57,9 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
       const profileData: UserProfile = await profileResponse.json();
 
       if (profileResponse.ok) {
+        setDisplayName(profileData.firstName && profileData.lastName 
+          ? `${profileData.firstName} ${profileData.lastName}`
+          : 'Utilisateur');
         const userRole = profileData.role;
         const currentDate = new Date();
 
@@ -115,6 +121,8 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
   // Assurez-vous que les titres s'affichent correctement
   return (
     <>
+      <h1 className="text-3xl font-bold">Bienvenue, {displayName} !</h1>
+      <p className="mt-4">Voici votre page d&apos;accueil des questionnaires.</p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
         {questionnaires.map((q) => (
           <div key={q.id} className="relative w-full aspect-square">

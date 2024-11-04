@@ -9,15 +9,13 @@ export default async function Home() {
   if (!session) {
     redirect('/login');
   }
-
-  
   
   return (
     <div>
       <Navbar user={session.user} />
       <main className="container mx-auto mt-8">
         <h1 className="text-3xl font-bold">Bienvenue !</h1>
-        <p className="mt-4">Complétez votre profil avant de continuer.</p>
+        <p className="mt-4">Merci de compléter ou vérifier votre profil avant de continuer.</p>
       </main>
 
         <div className="container mx-auto w-1/2 rounded-lg bg-gray-50 shadow-md mt-4">

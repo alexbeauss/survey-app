@@ -26,9 +26,6 @@ export default async function Home() {
     <div>
       <Navbar user={session.user} /> {/* Display the user's name */}
       <main className="container mx-auto mt-8">
-        <h1 className="text-3xl font-bold">Bienvenue, {userName} !</h1>
-        <p className="mt-4">Voici votre page d&apos;accueil des questionnaires.</p>
-
         <ClientHome userId={userId} />
       </main>
     </div>
