@@ -19,7 +19,6 @@ export default async function Home() {
     return;
   }
 
-  const userName = session.user.name || 'Utilisateur'; // Use the user's name from the session
   const userId = session.user.sub; // Retrieve user ID
 
   return (
