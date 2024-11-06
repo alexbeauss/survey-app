@@ -1,42 +1,13 @@
 {
   "1": {
-    "title": "Apprenance (T0)",
-    "startDate": "2024-01-01",
-    "endDate": "2024-12-31",
-    "icon": "/img/apprenance.jpeg",
-    "roles": [
-      "Apprenant"
-    ],
-    "description": "Cette échelle mesure votre niveau d'apprenance. L'apprenance est un ensemble de comportements qui permettent de s'approprier de nouvelles connaissances, de nouvelles compétences ou de nouvelles attitudes.",
-    "consigne": "Pour chaque affirmation, positionnez le curseur sur la réponse qui vous convient le mieux. Répondez spontanément et sans réfléchir.",
-    "questions": [
-      "Je cherche activement des occasions de me former.",
-      "Apprendre me procure une joie intense.",
-      "Je saisis absolument toutes les occasions d’apprendre.",
-      "Il est vital de découvrir tous les jours de nouvelles choses.",
-      "Je prends délibérément du temps pour apprendre de nouvelles choses.",
-      "Il faut apprendre tous les jours pour bien vivre.",
-      "Pour moi, se former est un grand plaisir.",
-      "Il est primordial d’acquérir quotidiennement de nouvelles connaissances.",
-      "Je suis sincèrement heureux quand j’apprends."
-    ],
-    "labels": [
-      "Pas du tout d'accord",
-      "Pas d'accord",
-      "Neutre",
-      "D'accord",
-      "Tout à fait d'accord"
-    ]
-  },
-  "2": {
     "title": "Motivations (T0)",
     "startDate": "2024-01-01",
     "endDate": "2024-12-31",
-    "icon": "/img/emg.jpeg",
+    "icon": "/img/motivations.jpeg",
     "roles": [
       "Formateur"
     ],
-    "description": "Cette échelle de motivations mesure votre niveau de motivations. Elle vous permettra de comprendre votre niveau de motivations et de vous donner des pistes pour progresser.",
+    "description": "Cette échelle évalue vos motivations pour vous engager dans vos activités professionnelles.",
     "consigne": "Indiquez dans quelle mesure chacun des énoncés suivants correspond aux raisons pour lesquelles vous faites ce que vous faites. En général, je fais des choses...",
     "questions": [
       "... pour ressentir des émotions que j'aime.",
@@ -78,7 +49,157 @@
       "Correspond exactement"
     ]
   },
+  "2": {
+    "title": "Motivations (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "icon": "/img/motivations.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Ce questionnaire évalue vos motivations pour vous engager dans l'apprentissage.",
+    "consigne": "Indiquez dans quelle mesure chacun des énoncés suivants correspond aux raisons pour lesquelles vous apprenez.",
+    "questions": [
+      "Parce qu'il est stimulant d'apprendre.",
+      "Pour le sentiment d'efficacité que j'éprouve lorsque j'apprends.",
+      "Parce qu'apprendre fait partie intégrante de ma vie.",
+      "Parce qu'apprendre correspond à mes valeurs personnelles.",
+      "Parce que c'est un bon moyen de développer des capacités sociales et intellectuelles qui me sont utiles.",
+      "Parce que cela a une signification personnelle pour moi.",
+      "Parce que je me sens obligé d'apprendre régulièrement.",
+      "Parce que sinon je me sentirais mal dans ma peau.",
+      "Pour le prestige d'être un bon apprenti.",
+      "Pour gagner des récompenses et recevoir des certifications.",
+      "Ce n'est plus très clair ; je me demande parfois si c'est bon pour moi.",
+      "Honnêtement, je ne sais pas ; j'ai l'impression de perdre mon temps."
+    ],
+    "labels": [
+      "Pas du tout d’accord",
+      "Pas d’accord",
+      "Plutôt pas d’accord",
+      "Neutre",
+      "Plutôt d’accord",
+      "D’accord",
+      "Tout à fait d’accord"
+    ]
+  },
   "3": {
+    "title": "Auto-efficacité (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "icon": "/img/autoefficacite.jpeg",
+    "roles": [
+      "Apprenant",
+      "Formateur"
+    ],
+    "description": "Cette échelle mesure votre niveau d'auto-efficacité, c'est à dire à quel point vous vous sentez capable de réaliser des choses.",
+    "consigne": "Ce questionnaire consiste en une série d'affirmations. Nous vous invitons à lire l'affirmation ; puis, vous déciderez à quel point ces affirmations correspondent à l'image que vous vous faites de vous-même. Veuillez indiquer vos propres sentiments à propos de chaque affirmation ci-dessous en cliquant sur le degrés d’accord qui décrit le mieux vos sentiments. Soyez attentif à vous décrire tel que vous êtes réellement et non pas tel que vous aimeriez être.",
+    "questions": [
+      "Quand je fais des projets, je suis certain de pouvoir les mettre à exécution.",
+      "Mon problème, c’est que je n’arrive pas à me mettre au travail lorsqu'il faudrait.",
+      "Si je n'arrive pas à faire quelque chose du premier coup, je continue d'essayer jusqu'à ce que j'y arrive.",
+      "Quand je me fixe des objectifs importants, je les atteins rarement.",
+      "J'abandonne les choses avant de les avoir terminées.",
+      "Lorsque des difficultés se présentent, je n’essaie pas d’y faire face.",
+      "Si quelque chose a l'air trop compliqué, je ne prends même pas la peine d'essayer.",
+      "Quand j'ai quelque chose de désagréable à faire, je m'y colle jusqu'à ce que je l’aie complètement terminée.",
+      "Quand je décide de faire quelque chose, je m'y consacre immédiatement.",
+      "Quand j'essaie d'apprendre quelque chose de nouveau, j'abandonne très vite si je n'y arrive pas tout de suite.",
+      "Quand des problèmes inattendus surviennent, j'arrive bien à y faire face.",
+      "L'échec me fait simplement redoubler d’effort.",
+      "Je suis une personne autonome.",
+      "J'abandonne facilement.",
+      "Il me semble que je suis capable de faire face à la plupart des problèmes qui surviennent dans ma vie."
+    ],
+    "labels": [
+      "Pas du tout d'accord",
+      "Plutôt pas d'accord",
+      "Ni d’accord, ni pas d’accord",
+      "Plutôt d'accord",
+      "Tout à fait d'accord"
+    ]
+  },
+  "4": {
+    "title": "Stress perçu (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "icon": "/img/stress.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Cette échelle mesure votre niveau de stress perçu.",
+    "consigne": "Indiquez dans quelle mesure chacun des énoncés suivants correspond à votre perception du stress perçu :",
+    "questions": [
+      "Durant le mois passé, combien de fois avez-vous eu le sentiment de ne pas pouvoir contrôler les aspects importants de votre vie ?",
+      "Durant le mois passé, combien de fois avez-vous eu confiance en votre capacité à gérer vos  problèmes personnels ?",
+      "Durant le mois passé, combien de fois avez-vous eu  le sentiment les choses allaient comme vous le vouliez ?",
+      "Durant le mois passé, combien de fois avez-vous eu le sentiment que les difficultés s'accumulaient tellement que vous ne pourriez pas les surmonter ?"
+    ],
+    "labels": [
+      "Jamais",
+      "Presque jamais",
+      "Parfois",
+      "Assez souvent",
+      "Très souvent"
+    ]
+  },
+  "5": {
+    "title": "Contrôle perçu (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "icon": "/img/controle.jpeg",
+    "roles": [
+      "Formateur"
+    ],
+    "description": "Cette échelle mesure la perception générale de contrôle que vous avez sur votre vie.",
+    "consigne": "Voici différentes attitudes à l'égard de la vie et de l'avenir. Veuillez indiquer celle qui vous correspond le mieux.",
+    "questions": [
+      "Je détermine la majeure partie de ce qui m'arrive dans la vie.",
+      "Faire des projets rend les gens malheureux parce qu'ils fonctionnent rarement.",
+      "Ma vie est déterminée par mon propre comportement.",
+      "Je pense que personne ne peut échapper à son destin. Dans la vie, tout arrive comme cela doit arriver.",
+      "Si j'obtiens quelque chose que je veux, c'est surtout grâce à la chance.",
+      "La plupart des projets que je fais sont couronnés de succès.",
+      "Il n'est pas utile de faire des projets précis parce qu'il y a toujours un imprévu.",
+      "Les choses se passent toujours différemment, on ne peut compter sur rien."
+    ],
+    "labels": [
+      "Ne s'applique pas",
+      "Ne s'applique pas vraiment",
+      "S'applique plus ou moins",
+      "S'applique complètement"
+    ]
+  },
+  "6": {
+    "title": "Apprenance (T0)",
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "icon": "/img/apprenance.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Cette échelle mesure votre niveau d'apprenance. L'apprenance est un ensemble de comportements qui permettent de s'approprier de nouvelles connaissances, de nouvelles compétences ou de nouvelles attitudes.",
+    "consigne": "Pour chaque affirmation, positionnez le curseur sur la réponse qui vous convient le mieux. Répondez spontanément et sans réfléchir.",
+    "questions": [
+      "Je cherche activement des occasions de me former.",
+      "Apprendre me procure une joie intense.",
+      "Je saisis absolument toutes les occasions d’apprendre.",
+      "Il est vital de découvrir tous les jours de nouvelles choses.",
+      "Je prends délibérément du temps pour apprendre de nouvelles choses.",
+      "Il faut apprendre tous les jours pour bien vivre.",
+      "Pour moi, se former est un grand plaisir.",
+      "Il est primordial d’acquérir quotidiennement de nouvelles connaissances.",
+      "Je suis sincèrement heureux quand j’apprends."
+    ],
+    "labels": [
+      "Pas du tout d'accord",
+      "Pas d'accord",
+      "Neutre",
+      "D'accord",
+      "Tout à fait d'accord"
+    ]
+  },
+  "7": {
     "title": "Efficacité collective (T0)",
     "startDate": "2024-01-01",
     "endDate": "2024-12-31",

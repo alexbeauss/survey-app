@@ -123,7 +123,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
     <>
       <h1 className="text-3xl font-bold">Bienvenue, {displayName} !</h1>
       <p className="mt-4">Voici votre page d&apos;accueil des questionnaires.</p>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
         {questionnaires.map((q) => (
           <div key={q.id} className="relative w-full aspect-square">
             <div 
