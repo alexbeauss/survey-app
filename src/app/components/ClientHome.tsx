@@ -121,8 +121,10 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
   // Assurez-vous que les titres s'affichent correctement
   return (
     <>
-      <h1 className="text-3xl font-bold">Bienvenue, {displayName} !</h1>
-      <p className="mt-4">Voici votre page d&apos;accueil des questionnaires.</p>
+      <div className="text-center">
+        <h1 className="text-3xl font-bold">Bienvenue, {displayName} !</h1>
+        <p className="mt-4">Voici les questionnaires qui vous sont proposés. Vous pouvez les compléter dans l'ordre que vous le souhaitez, cliquez sur le questionnaire pour le lancer et laissez-vous guider par les consignes.</p>
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
         {questionnaires.map((q) => (
           <div key={q.id} className="relative w-full aspect-square">
@@ -130,7 +132,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
               className="p-2 border border-gray-300 rounded-lg shadow-md transition-transform transform hover:scale-105 cursor-pointer relative" 
               onClick={() => openModal(q)}
             >
-              <div className="relative w-full h-72">
+              <div className="relative w-full h-96">
                 <Image 
                   src={q.icon} 
                   alt={q.title} 
@@ -150,11 +152,11 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
       </div>
 
       {isModalOpen && selectedQuestionnaire && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50" role="dialog" aria-modal="true">
+        <div className="fixed inset-0 bg-black bg-opacity-80 flex justify-center items-center z-50" role="dialog" aria-modal="true">
           <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-8 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative">
             <span className="absolute top-4 right-4 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 cursor-pointer text-3xl z-10" onClick={closeModal} aria-label="Fermer la modale">&times;</span>
-            <p className="mb-4 dark:text-white text-gray-600">{selectedQuestionnaire.description}</p>
-            <p className="mb-4 dark:text-white text-black font-bold italic underline decoration-sky-500">{selectedQuestionnaire.consigne}</p>
+            <p className="mb-4 text-lg dark:text-white text-gray-600">{selectedQuestionnaire.description}</p>
+            <p className="mb-4 dark:text-white text-black font-bold italic">{selectedQuestionnaire.consigne}</p>
             <Questionnaire 
               initialMood={selectedQuestionnaire.mood || 0}
               onMoodChange={(mood: number) => handleMoodChange(selectedQuestionnaire.id, mood)}

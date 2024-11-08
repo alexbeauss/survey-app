@@ -213,9 +213,11 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
           />
         </div>
 
-        <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-200">
-          Sauvegarder le profil
-        </button>
+        <div className="flex justify-center">
+          <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-200">
+            Sauvegarder le profil
+          </button>
+        </div>
       </form>
       {saveStatus && <p className="mt-4 text-center font-bold dark:text-white">{saveStatus}</p>}
       {isModalOpen && (
