@@ -123,7 +123,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
     <>
       <div className="text-center">
         <h1 className="text-3xl font-bold">Bienvenue, {displayName} !</h1>
-        <p className="mt-4">Voici les questionnaires qui vous sont proposés. Vous pouvez les compléter dans l'ordre que vous le souhaitez, cliquez sur le questionnaire pour le lancer et laissez-vous guider par les consignes.</p>
+        <p className="mt-4">Voici les questionnaires qui vous sont proposés. Vous pouvez les compléter dans l&apos;ordre que vous le souhaitez, cliquez sur le questionnaire pour le lancer et laissez-vous guider par les consignes.</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
         {questionnaires.map((q) => (
