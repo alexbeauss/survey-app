@@ -27,7 +27,7 @@ export default function Navbar({ user }: NavbarProps) {
     <nav className="bg-gradient-to-r from-yellow-400 to-black dark:from-yellow-500 dark:to-black p-4">
       <div className="w-full mx-auto flex justify-between items-center">
         <Link href="/" className="font-mono text-white text-2xl font-bold">
-          survey
+          CCCA-BTP
         </Link>
         <div className="flex items-center">
           {user ? (
