@@ -13,10 +13,22 @@ interface NavbarProps {
 export default function Navbar({ user }: NavbarProps) {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false); // État pour vérifier le montage
+  const [userRole, setUserRole] = useState<string>(''); // Nouvel état pour le rôle
 
   useEffect(() => {
     setIsMounted(true); // Mettez à jour l'état une fois que le composant est monté
-  }, []);
+    // Ajout de la récupération du rôle
+    if (user) {
+      fetch('/api/user-profile')
+        .then(response => response.json())
+        .then(data => {
+          setUserRole(data.role);
+        })
+        .catch(error => {
+          console.error('Erreur lors de la récupération du rôle:', error);
+        });
+    }
+  }, [user]);
 
   // Vérifiez si le composant est monté avant de rendre le contenu
   if (!isMounted) {
@@ -41,6 +53,11 @@ export default function Navbar({ user }: NavbarProps) {
                     height={32}
                     className="rounded-full mr-2"
                   />
+                  {userRole && (
+                    <span className="text-white ml-2 font-medium">
+                      {userRole}
+                    </span>
+                  )}
                 </button>
               </div>
               <LogoutButton />

@@ -17,8 +17,8 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
   const [saveStatus, setSaveStatus] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
  
-  const profiles = ['Formateur', 'Apprenant']; // Remplacez par vos options réelles
-  const ofAOptions = ['OF-A 1', 'OF-A 2', 'OF-A 3']; // Remplacez par vos options réelles
+  const profiles = ['Apprenant', 'Formateur', 'Pilote projet']; // Remplacez par vos options réelles
+  const ofAOptions = ['BTP CFA AURA', 'Bâtiment CFA BOURGOGNE F.-COMTE', 'BTP CFA GRAND EST', 'BTP CFA NORMANDIE', 'BTP CFA NOUVELLE AQUITAINE', 'BTP CFA OCCITANIE', 'BTP CFA PACA', 'BTP CFA PICARDIE', 'BTP CFA POITOU CHARENTES', 'MFR ST ANDRE DU GAZ - Le VILLAGE (AURA)', 'MFR CLOS DU BAZ (AURA)', 'MFR ST GILLE CROIX DE VIE (Pays de la Loire)', 'CFA IFFEN (Ile-de-France)', 'CFA DUCRETET', 'GIP FTLV CAFOC de DIJON', 'CMAR PACA', 'CRMA OCCITANIE', 'AOCDTF']; // Remplacez par vos options réelles
   const genres = ['Homme', 'Femme', 'Autre']; // Remplacez par vos options réelles
 
   useEffect(() => {
@@ -30,7 +30,9 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
           const data = await response.json();
           setFirstName(data.firstName || '');
           setLastName(data.lastName || '');
-          setRole(data.role || '');
+          if (data.role) {
+            setRole(data.role);
+          }
           setOfA(data.ofA || ''); // Récupération de 'ofA'
           setGender(data.gender || ''); // Récupération de 'gender'
           setAge(data.age || ''); // Récupération de 'age'
@@ -131,23 +133,32 @@ export default function DynamicProfilePage({ user }: DynamicProfilePageProps) {
                 </svg>
               </span>}
           </label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          >
-            <option value="">Sélectionnez un profil</option>
-            {profiles.map((p) => (
-              <option key={p} value={p}>{p}</option>
-            ))}
-          </select>
+          {role ? (
+            <input
+              type="text"
+              value={role}
+              className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none cursor-not-allowed bg-gray-100"
+              disabled
+            />
+          ) : (
+            <select
+              id="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
+              required
+            >
+              <option value="">Sélectionnez un profil</option>
+              {profiles.map((p) => (
+                <option key={p} value={p}>{p}</option>
+              ))}
+            </select>
+          )}
         </div>
 
         <div className="flex flex-col mb-4">
           <label htmlFor="ofA" className="block mb-2 text-lg font-semibold flex items-center">
-            OF-A
+            Organisme de formation
             {ofA && 
               <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">

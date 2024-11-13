@@ -22,11 +22,14 @@ export default async function Home() {
   const userId = session.user.sub; // Retrieve user ID
 
   return (
-    <div>
-      <Navbar user={session.user} /> {/* Display the user's name */}
-      <main className="container mx-auto mt-8">
+    <div className="flex flex-col min-h-screen">
+      <Navbar user={session.user} />
+      <main className="container mx-auto mt-8 flex-grow">
         <ClientHome userId={userId} />
       </main>
+      <footer className="container text-xs mx-auto py-4 text-center text-gray-600 dark:text-gray-400">
+        <p>Une question ? Un problème ? Écrivez à <a href="mailto:support@taline.app" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">support@taline.app</a></p>
+      </footer>
     </div>
   );
 }

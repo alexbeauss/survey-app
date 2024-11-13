@@ -38,9 +38,12 @@ export default async function LoginPage() {
           alt="Description de l'image" 
           width={200} 
           height={300} 
-          className="mt-8 pt-20"
+          className="mt-8 pt-18"
         />
       </div>
+      <footer className="container text-xs mx-auto py-4 text-center text-gray-600 dark:text-gray-400">
+        <p>Une question ? Un problème ? Écrivez à <a href="mailto:support@taline.app" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">support@taline.app</a></p>
+      </footer>
     </div>
   );
 }
