@@ -5,7 +5,7 @@
     "endDate": "2024-12-31",
     "icon": "/img/motivations.jpeg",
     "roles": [
-      "Formateur"
+      "Formateur","Pilote projet"
     ],
     "description": "Cette échelle évalue vos motivations pour vous engager dans vos activités professionnelles.",
     "consigne": "Indiquez dans quelle mesure chacun des énoncés suivants correspond aux raisons pour lesquelles vous faites ce que vous faites. En général, je fais des choses...",
@@ -149,7 +149,7 @@
     "endDate": "2024-12-31",
     "icon": "/img/controle.jpeg",
     "roles": [
-      "Formateur"
+      "Formateur","Pilote projet"
     ],
     "description": "Cette échelle mesure la perception générale de contrôle que vous avez sur votre vie.",
     "consigne": "Voici différentes attitudes à l'égard de la vie et de l'avenir. Veuillez indiquer celle qui vous correspond le mieux.",
@@ -205,7 +205,7 @@
     "endDate": "2024-12-31",
     "icon": "/img/evos.jpeg",
     "roles": [
-      "Formateur"
+      "Formateur","Pilote projet"
     ],
     "description": "Cette échelle mesure votre niveau d'efficacité collective.",
     "consigne": "Complétez chacune des phrases suivantes en indiquant ce que vous pensez sincèrement de la façon dont vous travaillez ensemble :",
