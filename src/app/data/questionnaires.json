@@ -90,7 +90,7 @@
     "icon": "/img/autoefficacite.jpeg",
     "roles": [
       "Apprenant",
-      "Formateur"
+      "Formateur","Pilote projet"
     ],
     "description": "Cette échelle mesure votre niveau d'auto-efficacité, c'est à dire à quel point vous vous sentez capable de réaliser des choses.",
     "consigne": "Ce questionnaire consiste en une série d'affirmations. Nous vous invitons à lire l'affirmation ; puis, vous déciderez à quel point ces affirmations correspondent à l'image que vous vous faites de vous-même. Veuillez indiquer vos propres sentiments à propos de chaque affirmation ci-dessous en cliquant sur le degrés d’accord qui décrit le mieux vos sentiments. Soyez attentif à vous décrire tel que vous êtes réellement et non pas tel que vous aimeriez être.",
