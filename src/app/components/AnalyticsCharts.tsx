@@ -23,11 +23,6 @@ function polarToCartesian(angle: number, radius: number) {
 
 export default function AnalyticsCharts({ roleFilter }: { roleFilter: string | string[] }) {
   const [data, setData] = useState<AnalyticsData[]>([]);
-  const [hoveredData, setHoveredData] = useState<{
-    role: string;
-    count: number;
-    scoreRange: string;
-  } | null>(null);
   const histogramRef = useRef<HTMLDivElement>(null);
   const radarRef = useRef<HTMLDivElement>(null);
 
@@ -270,7 +265,7 @@ export default function AnalyticsCharts({ roleFilter }: { roleFilter: string | s
             <div className="mt-4 text-sm text-gray-600">
               <p>• Les points représentent les réponses individuelles</p>
               <p>• Les lignes pleines représentent les moyennes par rôle</p>
-              <p>• L'échelle va de 0 (centre) à 10 (extérieur)</p>
+              <p>• L&apos;échelle va de 0 (centre) à 10 (extérieur)</p>
               <p>• Q1 à Q4 correspondent aux quatre questions du questionnaire</p>
             </div>
           </div>
