@@ -191,58 +191,16 @@ export default function AnalyticsCharts({ roleFilter }: { roleFilter: string | s
       }
     });
 
-    // Créer l'histogramme (votre code existant)
-    const histogramChart = Plot.plot({
-      width: 800,
-      height: 400,
-      grid: true,
-      style: {
-        background: "white",
-        fontSize: "14px",
-        overflow: "visible"
-      },
-      x: { 
-        label: "Score total",
-        nice: true
-      },
-      y: { 
-        label: "Nombre de réponses",
-        grid: true 
-      },
-      color: {
-        legend: true,
-        label: "Rôle"
-      },
-      marks: [
-        Plot.rectY(
-          questionnaire4Data.map(item => ({
-            totalScore: item.moods.reduce((acc, curr) => acc + curr, 0),
-            role: item.userInfo.role,
-            ofA: item.userInfo.ofA
-          })),
-          Plot.binX(
-            { y: "count" },
-            { 
-              x: "totalScore",
-              fill: "role",
-              thresholds: 20,
-              opacity: 0.7,
-              tip: true
-            }
-          )
-        )
-      ]
-    });
+   
 
     // Nettoyer et ajouter les graphiques
     radarRef.current.innerHTML = '';
     histogramRef.current.innerHTML = '';
     radarRef.current.append(radarChart);
-    histogramRef.current.append(histogramChart);
+    
 
     return () => {
       radarChart.remove();
-      histogramChart.remove();
     };
   }, [data, roleFilter]);
 
