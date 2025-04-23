@@ -1,71 +1,87 @@
 "use client";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-export default function DynamicProfilePage() {
+interface GipProfilePageProps {
+  onClose?: () => void;
+  onQuestionnaireOpen?: () => void;
+  onProfileSave?: (userId: string) => void;
+}
+
+export default function GipProfilePage({ onClose, onQuestionnaireOpen, onProfileSave }: GipProfilePageProps) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [role, setRole] = useState('');
-  const [ofA, setOfA] = useState('');
   const [gender, setGender] = useState('');
   const [age, setAge] = useState<number | ''>('');
   const [saveStatus, setSaveStatus] = useState('');
   const [isModalOpen, setModalOpen] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
  
-  const profiles = ['Apprenant', 'Formateur', 'Pilote projet'];
-  const ofAOptions = ['BTP CFA AURA', 'Bâtiment CFA BOURGOGNE F.-COMTE', 'BTP CFA GRAND EST', 'BTP CFA NORMANDIE', 'BTP CFA NOUVELLE AQUITAINE', 'BTP CFA OCCITANIE', 'BTP CFA PACA', 'BTP CFA PICARDIE', 'BTP CFA POITOU CHARENTES', 'MFR ST ANDRE DU GAZ - Le VILLAGE (AURA)', 'MFR CLOS DU BAZ (AURA)', 'MFR ST GILLE CROIX DE VIE (Pays de la Loire)', 'CFA IFFEN (Ile-de-France)', 'CFA DUCRETET', 'GIP FTLV CAFOC de DIJON', 'CMAR PACA', 'CRMA OCCITANIE', 'AOCDTF'];
   const genres = ['Homme', 'Femme', 'Autre'];
-
-  useEffect(() => {
-    async function loadUserProfile() {
-      try {
-        const response = await fetch('/api/user-profile');
-        if (response.ok) {
-          const data = await response.json();
-          setFirstName(data.firstName || '');
-          setLastName(data.lastName || '');
-          if (data.role) {
-            setRole(data.role);
-          }
-          setOfA(data.ofA || '');
-          setGender(data.gender || '');
-          setAge(data.age || '');
-        }
-      } catch (error) {
-        console.error('Erreur:', error);
-        setSaveStatus('Erreur lors du chargement du profil.');
-      }
-    }
-    loadUserProfile();
-  }, []);
+  const role = 'Apprenant';
+  const ofA = 'GIP FTLV CAFOC de DIJON';
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!firstName || !lastName || !role || !ofA || !gender || age === '') {
+    if (!firstName || !lastName || !gender || age === '') {
       setModalOpen(true);
       return;
     }
     
     try {
-      const response = await fetch('/api/user-profile', {
+      const requestData = {
+        firstName,
+        lastName,
+        role,
+        ofA,
+        gender,
+        age,
+        isCompleted: true,
+        userId
+      };
+      
+      console.log('Données envoyées:', requestData);
+
+      const response = await fetch('/api/public-profile', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstName, lastName, role, ofA, gender, age, isCompleted: true }),
+        body: JSON.stringify(requestData),
       });
-      if (response.ok) {
-        setSaveStatus('Profil sauvegardé avec succès !');
-        window.location.href = '/home';
-      } else {
-        throw new Error('Erreur lors de la sauvegarde du profil');
+      
+      const data = await response.json();
+      console.log('Réponse reçue:', data);
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Erreur lors de la sauvegarde du profil');
+      }
+
+      setSaveStatus('Profil sauvegardé avec succès !');
+      if (data.userId) {
+        setUserId(data.userId);
+        if (onProfileSave) {
+          onProfileSave(data.userId);
+        }
+      }
+      setIsVisible(false);
+      if (onClose) {
+        onClose();
+      }
+      if (onQuestionnaireOpen) {
+        onQuestionnaireOpen();
       }
     } catch (error) {
-      console.error('Erreur:', error);
-      setSaveStatus('Erreur lors de la sauvegarde du profil.');
+      console.error('Erreur lors de la sauvegarde:', error);
+      setSaveStatus(error instanceof Error ? error.message : 'Erreur lors de la sauvegarde du profil.');
     }
   };
 
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div className="container mx-auto p-6 dark:bg-gray-900 dark:text-white">
@@ -108,63 +124,6 @@ export default function DynamicProfilePage() {
             className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
             required
           />
-        </div>
-
-        <div className="flex flex-col mb-4">
-          <label htmlFor="profile" className="block mb-2 text-lg font-semibold flex items-center">
-            Rôle
-            {role && 
-              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>}
-          </label>
-          {role ? (
-            <input
-              type="text"
-              value={role}
-              className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none cursor-not-allowed bg-gray-100"
-              disabled
-            />
-          ) : (
-            <select
-              id="role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
-              required
-            >
-              <option value="">Sélectionnez un profil</option>
-              {profiles.map((p) => (
-                <option key={p} value={p}>{p}</option>
-              ))}
-            </select>
-          )}
-        </div>
-
-        <div className="flex flex-col mb-4">
-          <label htmlFor="ofA" className="block mb-2 text-lg font-semibold flex items-center">
-            Organisme de formation
-            {ofA && 
-              <span className="ml-2 bg-green-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="white">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                </svg>
-              </span>}
-          </label>
-          <select
-            id="ofA"
-            value={ofA}
-            onChange={(e) => setOfA(e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500"
-            required
-          >
-            <option value="">Sélectionnez OF-A</option>
-            {ofAOptions.map((o) => (
-              <option key={o} value={o}>{o}</option>
-            ))}
-          </select>
         </div>
 
         <div className="flex flex-col mb-4">
@@ -213,7 +172,7 @@ export default function DynamicProfilePage() {
 
         <div className="flex justify-center">
           <button type="submit" className="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 transition duration-200">
-            Sauvegarder le profil
+            Démarrer le questionnaire
           </button>
         </div>
       </form>
@@ -231,4 +190,4 @@ export default function DynamicProfilePage() {
       )}
     </div>
   );
-}
+} 

@@ -226,5 +226,40 @@
       "Bon·ne",
       "Très bon·ne"
     ]
+  },
+  "8": {
+    "title": "Safety Attitudes Questionnaire",
+    "startDate": "2024-01-01",
+    "endDate": "2025-01-31",
+    "icon": "/img/evos.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Ce questionnaire évalue vos attitudes générales en matière de sécurité.",
+    "consigne": "Pour chaque affirmation, positionnez le curseur sur la réponse qui vous convient le mieux. Répondez spontanément et sans réfléchir.",
+    "questions": [
+      "Je connais les consignes de sécurité spécifiques aux machines que j’utilise.",
+      "Je sais comment réagir en cas d’incident ou d’accident.",
+      "Je suis capable d’identifier les équipements de protection individuelle (EPI) adaptés à chaque situation.",
+      "J’identifie rapidement les situations dangereuses dans mon environnement de travail.",
+      "J’évalue systématiquement les risques avant d’effectuer une tâche.",
+      "J’ai conscience des conséquences d’un non-respect des consignes de sécurité.",
+      "Je porte toujours les EPI requis, même lorsqu’il n’y a pas de surveillance.",
+      "J’applique les bonnes pratiques de sécurité sans y être obligé(e) par un formateur ou un tuteur.",
+      "J’intègre spontanément les gestes de prévention dans mon travail quotidien.",
+      "Si un collègue adopte un comportement dangereux, je l’en informe immédiatement.",
+      "Je n’hésite pas à signaler une situation à risque à mon supérieur.",
+      "Je préfère ralentir mon travail pour être plus en sécurité plutôt que de prendre des risques pour aller plus vite.",
+      "J’applique les mêmes principes de sécurité en dehors du cadre de la formation (bricolage, loisirs, etc.).",
+      "Depuis ma formation, ma perception du danger a changé.",
+      "Je pense que la sécurité est une responsabilité individuelle et collective."
+    ],
+    "labels": [
+      "Pas du tout d'accord",
+      "Plutôt pas d'accord",
+      "Neutre",
+      "Plutôt d'accord",
+      "Tout à fait d'accord"
+    ]
   }
 }

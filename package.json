@@ -12,11 +12,13 @@
     "@auth0/nextjs-auth0": "^3.5.0",
     "@observablehq/plot": "^0.6.16",
     "@sentry/nextjs": "^8.42.0",
+    "@types/uuid": "^10.0.0",
     "axios": "^1.7.7",
     "mongodb": "^6.9.0",
     "next": "^15.0.1",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

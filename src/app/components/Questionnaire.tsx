@@ -1,15 +1,6 @@
 "use client";
 import { useState, useRef, useEffect, useCallback } from 'react';
-import axios from 'axios'; // Assurez-vous d'importer axios
-
-// Définir un type pour questionnaires
-type QuestionnairesType = {
-  [key: string]: { questions: string[]; labels: string[] };
-};
-
-import questionnairesData from '../data/questionnaires.json'; // Importer le fichier JSON avec le type défini
-
-const questionnaires: QuestionnairesType = questionnairesData; // Utiliser l'importation
+import axios from 'axios';
 
 interface QuestionnaireProps {
   initialMood: number;
@@ -18,9 +9,9 @@ interface QuestionnaireProps {
   questionnaireId: string;
   isAnswered: boolean;
   onClose: () => void;
-  onSave: (data: number[]) => void; // Spécifiez le type de données
-  questions: string[]; // Remplacez any par string[]
-  labels: string[]; // Remplacez any par string[]
+  onSave: (data: number[]) => void;
+  questions: string[];
+  labels: string[];
 }
 
 export default function Questionnaire({ 
@@ -29,21 +20,20 @@ export default function Questionnaire({
   questionnaireId, 
   isAnswered, 
   onClose, 
-  onSave 
+  onSave,
+  questions,
+  labels
 }: QuestionnaireProps) {
-  const { questions, labels } = questionnaires[questionnaireId] || { questions: [], labels: [] }; // Récupérer les questions et les étiquettes
+  const [moods, setMoods] = useState<number[]>(Array(questions.length).fill(null));
+  const [hasMoved, setHasMoved] = useState<boolean[]>(Array(questions.length).fill(false));
+  const sliderRef = useRef<HTMLDivElement[]>(Array(questions.length).fill(null));
+  const [currentlyDraggingIndex, setCurrentlyDraggingIndex] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(true);
 
-  // Initialiser le tableau moods avec une longueur égale au nombre de questions, en commençant par null
-  const [moods, setMoods] = useState<number[]>(Array(questions.length).fill(null)); // Initialiser avec null
-  const [hasMoved, setHasMoved] = useState<boolean[]>(Array(questions.length).fill(false)); // Suivre si chaque curseur a été déplacé
-  const sliderRef = useRef<HTMLDivElement[]>(Array(questions.length).fill(null)); // Référencer chaque slider
-  const [currentlyDraggingIndex, setCurrentlyDraggingIndex] = useState<number | null>(null); // État pour suivre l'index du curseur en cours de déplacement
-
-  // Initialiser les humeurs à la position médiane (5) lors du premier rendu
   useEffect(() => {
-    const initialMoods = Array(questions.length).fill(5); // Position médiane
+    const initialMoods = Array(questions.length).fill(5);
     setMoods(initialMoods);
-  }, [questions.length]); // Dépendance sur la longueur des questions
+  }, [questions.length]);
 
   const handleMoodChange = useCallback((index: number, clientX: number) => {
     const newMoods = [...moods];
@@ -51,28 +41,28 @@ export default function Questionnaire({
     const rect = sliderRef.current[index].getBoundingClientRect();
     const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
     const percentage = x / rect.width;
-    newMoods[index] = parseFloat((percentage * 10).toFixed(2)); // Mettre à jour la valeur de mood
+    newMoods[index] = parseFloat((percentage * 10).toFixed(2));
     setMoods(newMoods);
     setHasMoved(prev => {
       const updated = [...prev];
-      updated[index] = true; // Marquer que le curseur a été déplacé
+      updated[index] = true;
       return updated;
     });
-    onMoodChange(newMoods[index]); // Passer le tableau des humeurs
+    onMoodChange(newMoods[index]);
   }, [moods, onMoodChange]);
 
   const handleMove = useCallback((e: MouseEvent | TouchEvent) => {
-    if (currentlyDraggingIndex === null) return; // Vérifier si un curseur est en cours de déplacement
+    if (currentlyDraggingIndex === null) return;
     handleMoodChange(currentlyDraggingIndex, e.type.includes('mouse') ? (e as MouseEvent).clientX : (e as TouchEvent).touches[0].clientX);
   }, [handleMoodChange, currentlyDraggingIndex]);
 
   const handleStart = useCallback((e: React.MouseEvent<HTMLDivElement> | React.TouchEvent<HTMLDivElement>, index: number) => {
-    setCurrentlyDraggingIndex(index); // Enregistrer l'index du curseur en cours de déplacement
+    setCurrentlyDraggingIndex(index);
     handleMoodChange(index, e.type.includes('mouse') ? (e as React.MouseEvent<HTMLDivElement>).clientX : (e as React.TouchEvent<HTMLDivElement>).touches[0].clientX);
   }, [handleMoodChange]);
 
   const handleEnd = useCallback(() => {
-    setCurrentlyDraggingIndex(null); // Réinitialiser l'index lorsque le déplacement est terminé
+    setCurrentlyDraggingIndex(null);
   }, []);
 
   useEffect(() => {
@@ -98,25 +88,30 @@ export default function Questionnaire({
   }, [handleMove, handleEnd]);
 
   const getMoodText = useCallback((mood: number) => {
-    const index = Math.floor(((mood) / 10) * (labels.length - 1)); // Calculer l'index en fonction du nombre de labels
-    return labels[Math.min(index, labels.length - 1)]; // S'assurer que l'index ne dépasse pas la longueur des labels
-  }, [labels]); // Ajouter labels comme dépendance
+    const index = Math.floor(((mood) / 10) * (labels.length - 1));
+    return labels[Math.min(index, labels.length - 1)];
+  }, [labels]);
 
   const handleSave = async () => {
-    // Vérifier si tous les curseurs ont été déplacés
     if (hasMoved.some(moved => !moved)) {
-      alert("Veuillez répondre à toutes les questions avant de sauvegarder."); // Alerte si des réponses sont manquantes
+      alert("Veuillez répondre à toutes les questions avant de sauvegarder.");
       return;
     }
 
     try {
-      await axios.post('/api/answers', { moods, userId, questionnaireId, isAnswered }); // Enregistrer le tableau des humeurs
-      onSave(moods); // Passer le tableau moods au lieu d'un seul nombre
-      onClose(); // Fermer la modale après la sauvegarde
+      await axios.post('/api/public-answers', { moods, userId, questionnaireId, isAnswered });
+      onSave(moods);
+      setIsVisible(false);
+      onClose();
     } catch (error) {
       console.error('Erreur lors de la sauvegarde des réponses:', error);
+      alert('Erreur lors de la sauvegarde des réponses. Veuillez réessayer.');
     }
   };
+
+  if (!isVisible) {
+    return null;
+  }
 
   return (
     <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 rounded-lg">

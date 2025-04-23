@@ -18,7 +18,7 @@ export default async function Home() {
       </main>
 
         <div className="container mx-auto w-1/2 rounded-lg bg-gray-50 shadow-md mt-4">
-          <DynamicProfilePage user={session.user} />
+          <DynamicProfilePage />
         </div>
         
      

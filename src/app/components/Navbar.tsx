@@ -80,7 +80,7 @@ export default function Navbar({ user }: NavbarProps) {
             >
               &times;
             </button>
-            <DynamicProfilePage user={user} />
+            <DynamicProfilePage />
           </div>
         </div>
       )}

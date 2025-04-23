@@ -1,66 +1,35 @@
-// /src/pages/api/user-profile.ts
-
 import { NextResponse } from 'next/server';
-import { getSession } from '@auth0/nextjs-auth0';
 import clientPromise from '@/lib/mongodb';
 import { v4 as uuidv4 } from 'uuid';
 
 export async function GET(request: Request) {
-  const session = await getSession();
-
-  console.log(session);
-  if (!session || !session.user) {
-    // Générer un userId unique pour les utilisateurs non authentifiés
-    const userId = uuidv4();
-    return NextResponse.json({ 
-      profile: '', 
-      centre: '', 
-      role: '', 
-      isCompleted: false,
-      firstName: '', 
-      lastName: '', 
-      ofA: '', 
-      gender: '', 
-      age: null,
-      userId 
-    });
-  }
-
-  const client = await clientPromise;
-  const db = client.db("questionnaires");
-  const usersCollection = db.collection("users");
-
   try {
     const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId') || session.user.sub;
+    const userId = searchParams.get('userId') || uuidv4();
+
+    const client = await clientPromise;
+    const db = client.db("questionnaires");
+    const usersCollection = db.collection("users");
 
     const user = await usersCollection.findOne({ userId });
 
     if (user) {
       return NextResponse.json({ 
-        profile: user.profile || '', 
-        centre: user.centre || '', 
-        role: user.role || '', 
-        isCompleted: user.isCompleted || false,
         firstName: user.firstName || '', 
         lastName: user.lastName || '',   
         ofA: user.ofA || '',             
         gender: user.gender || '',       
         age: user.age || null,
-        userId: user.userId || session.user.sub
+        userId: user.userId
       });
     } else {
       return NextResponse.json({ 
-        profile: '', 
-        centre: '', 
-        role: '', 
-        isCompleted: false,
         firstName: '', 
         lastName: '', 
         ofA: '', 
         gender: '', 
         age: null,
-        userId: session.user.sub
+        userId
       });
     }
   } catch (error) {
@@ -110,4 +79,4 @@ export async function POST(request: Request) {
       details: error instanceof Error ? error.message : 'Erreur inconnue'
     }, { status: 500 });
   }
-}
+} 
