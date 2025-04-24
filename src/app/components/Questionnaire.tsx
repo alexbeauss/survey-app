@@ -28,12 +28,14 @@ export default function Questionnaire({
   const [hasMoved, setHasMoved] = useState<boolean[]>(Array(questions.length).fill(false));
   const sliderRef = useRef<HTMLDivElement[]>(Array(questions.length).fill(null));
   const [currentlyDraggingIndex, setCurrentlyDraggingIndex] = useState<number | null>(null);
-  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    console.log('Questionnaire ID:', questionnaireId);
+    console.log('Questions reçues:', questions);
+    console.log('Labels reçus:', labels);
     const initialMoods = Array(questions.length).fill(5);
     setMoods(initialMoods);
-  }, [questions.length]);
+  }, [questions.length, questionnaireId, questions, labels]);
 
   const handleMoodChange = useCallback((index: number, clientX: number) => {
     const newMoods = [...moods];
@@ -101,17 +103,12 @@ export default function Questionnaire({
     try {
       await axios.post('/api/public-answers', { moods, userId, questionnaireId, isAnswered });
       onSave(moods);
-      setIsVisible(false);
       onClose();
     } catch (error) {
       console.error('Erreur lors de la sauvegarde des réponses:', error);
       alert('Erreur lors de la sauvegarde des réponses. Veuillez réessayer.');
     }
   };
-
-  if (!isVisible) {
-    return null;
-  }
 
   return (
     <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 rounded-lg">

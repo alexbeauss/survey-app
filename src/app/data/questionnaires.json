@@ -173,12 +173,12 @@
   "6": {
     "title": "Apprenance (T0)",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/apprenance.jpeg",
     "roles": [
       "Apprenant"
     ],
-    "description": "Cette échelle mesure votre niveau d'apprenance. L'apprenance est un ensemble de comportements qui permettent de s'approprier de nouvelles connaissances, de nouvelles compétences ou de nouvelles attitudes.",
+    "description": "Ce questionnaire mesure votre niveau d'apprenance. L'apprenance est un ensemble de comportements qui permettent de s'approprier de nouvelles connaissances, de nouvelles compétences ou de nouvelles attitudes.",
     "consigne": "Pour chaque affirmation, positionnez le curseur sur la réponse qui vous convient le mieux. Répondez spontanément et sans réfléchir.",
     "questions": [
       "Je cherche activement des occasions de me former.",
@@ -230,7 +230,7 @@
   "8": {
     "title": "Safety Attitudes Questionnaire",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/evos.jpeg",
     "roles": [
       "Apprenant"

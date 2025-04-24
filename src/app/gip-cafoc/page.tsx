@@ -1,23 +1,44 @@
 // /src/app/gip-cafoc/page.tsx
 
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PublicNavbar from '@/app/components/PublicNavbar';
 import GipProfilePage from '@/app/components/GipProfilePage';
 import Questionnaire from '@/app/components/Questionnaire';
 import questionnairesData from '../data/questionnaires.json';
 
+type QuestionnaireId = keyof typeof questionnairesData;
+
 export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
   const [isQuestionnaireCompleted, setIsQuestionnaireCompleted] = useState(false);
-  const questionnaireData = questionnairesData['8'];
+  const [currentQuestionnaireId, setCurrentQuestionnaireId] = useState<QuestionnaireId>('6');
+  const questionnaireData = questionnairesData[currentQuestionnaireId];
+
+  useEffect(() => {
+    console.log('Questionnaire actuel:', currentQuestionnaireId);
+    console.log('Données du questionnaire:', questionnaireData);
+    console.log('État isQuestionnaireCompleted:', isQuestionnaireCompleted);
+  }, [currentQuestionnaireId, questionnaireData, isQuestionnaireCompleted]);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [currentQuestionnaireId]);
 
   const handleProfileSave = (newUserId: string) => {
     setUserId(newUserId);
   };
 
   const handleQuestionnaireSave = () => {
-    setIsQuestionnaireCompleted(true);
+    console.log('Sauvegarde du questionnaire', currentQuestionnaireId);
+    if (currentQuestionnaireId === '6') {
+      console.log('Passage au questionnaire 8');
+      setCurrentQuestionnaireId('8');
+      setIsQuestionnaireCompleted(false);
+    } else {
+      console.log('Questionnaire terminé');
+      setIsQuestionnaireCompleted(true);
+    }
   };
 
   return (
@@ -32,7 +53,7 @@ export default function Home() {
           />
         </div>
 
-        {userId && !isQuestionnaireCompleted && (
+        {userId && !isQuestionnaireCompleted && questionnaireData && (
           <div className="w-full max-w-4xl bg-white dark:bg-gray-800 p-8 rounded-lg">
             <p className="mb-4 text-lg dark:text-white text-gray-600">{questionnaireData.description}</p>
             <p className="mb-4 dark:text-white text-black font-bold italic">{questionnaireData.consigne}</p>
@@ -40,7 +61,7 @@ export default function Home() {
               initialMood={0}
               onMoodChange={() => {}}
               userId={userId}
-              questionnaireId="8"
+              questionnaireId={currentQuestionnaireId}
               isAnswered={false}
               onClose={() => {}}
               onSave={handleQuestionnaireSave}
