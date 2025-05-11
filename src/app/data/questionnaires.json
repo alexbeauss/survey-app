@@ -52,7 +52,7 @@
   "2": {
     "title": "Motivations (T0)",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/motivations.jpeg",
     "roles": [
       "Apprenant"
@@ -86,7 +86,7 @@
   "3": {
     "title": "Auto-efficacité (T0)",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/autoefficacite.jpeg",
     "roles": [
       "Apprenant",
@@ -230,7 +230,7 @@
   "8": {
     "title": "Safety Attitudes Questionnaire",
     "startDate": "2024-01-01",
-    "endDate": "2025-12-31",
+    "endDate": "2025-01-31",
     "icon": "/img/evos.jpeg",
     "roles": [
       "Apprenant"
