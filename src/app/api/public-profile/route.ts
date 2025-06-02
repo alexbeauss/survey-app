@@ -20,6 +20,8 @@ export async function GET(request: Request) {
         ofA: user.ofA || '',             
         gender: user.gender || '',       
         age: user.age || null,
+        campus: user.campus || '',
+        metier: user.metier || '',
         userId: user.userId
       });
     } else {
@@ -29,6 +31,8 @@ export async function GET(request: Request) {
         ofA: '', 
         gender: '', 
         age: null,
+        campus: '',
+        metier: '',
         userId
       });
     }
@@ -40,7 +44,7 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, role, ofA, gender, age, isCompleted, userId: existingUserId } = await request.json();
+    const { firstName, lastName, role, ofA, gender, age, campus, metier, isCompleted, userId: existingUserId } = await request.json();
     
     // Utiliser le userId existant ou en générer un nouveau
     const userId = existingUserId || uuidv4();
@@ -56,6 +60,8 @@ export async function POST(request: Request) {
       ofA,
       gender,
       age,
+      campus,
+      metier,
       userId,
       isCompleted,
       updatedAt: new Date()

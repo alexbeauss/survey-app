@@ -261,5 +261,71 @@
       "Plutôt d'accord",
       "Tout à fait d'accord"
     ]
+  },
+  "9": {
+    "title": "Affects éco-construction",
+    "startDate": "2024-01-01",
+    "endDate": "2025-01-31",
+    "icon": "/img/evos.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Tu vas participer, ou tu as déjà participé, à une séquence pédagogique sur le thème de l’éco-construction. L’éco-construction désigne une manière de concevoir, construire ou rénover des bâtiments en minimisant leur impact environnemental, en favorisant les matériaux naturels, locaux et durables, et en optimisant les performances énergétiques.",
+    "consigne": "Indique dans quelle mesure tu ressens les émotions listées ci-dessous à l'idée de découvrir l’éco-construction.",
+    "questions": [
+      "Intéressé(e)",
+      "Enthousiaste",
+      "Confiant(e)",
+      "Motivé(e)",
+      "Curieux(se)",
+      "Ennuyé(e)",
+      "Sceptique",
+      "Perdu(e)",
+      "Stressé(e)",
+      "Indifférent(e)"
+    ],
+    "labels": [
+      "Pas du tout",
+      "Un peu",
+      "Moyennement",
+      "Assez",
+      "Extrêmement"
+    ]
+  },
+  "10": {
+    "title": "Intentions comportementales éco-construction",
+    "startDate": "2024-01-01",
+    "endDate": "2025-01-31",
+    "icon": "/img/evos.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Ce questionnaire évalue ce que tu penses de l'éco-construction dans ton métier.",
+    "consigne": "Pour chaque affirmation, indique à quel point tu es d’accord. Il n’y a pas de bonnes ou de mauvaises réponses, réponds sincèrement sans trop réfléchir.",
+    "questions": [
+      "Construire de façon éco-responsable est une bonne idée.",
+      "Construire de façon éco-responsable est quelque chose d’important.",
+      "Construire de façon éco-responsable est bénéfique pour l’environnement.",
+      "Construire de façon éco-responsable est une chose positive pour moi.",
+      "La plupart des personnes importantes pour moi pensent que je devrais utiliser des pratiques éco-responsables sur un chantier.",
+      "Mon entourage (amis, professeurs, famille) approuve l’éco-construction.",
+      "Les professionnels du bâtiment encouragent l’éco-construction.",
+      "Il est facile pour moi d’utiliser des pratiques éco-responsables sur un chantier.",
+      "Même avec peu de moyens, je peux utiliser des matériaux écologiques.",
+      "J’ai le contrôle sur les choix de matériaux et les techniques de construction que j’utilise.",
+      "Si je veux, je peux vraiment appliquer l’éco-construction dans ma pratique.",
+      "J’ai l’intention d’appliquer des pratiques éco-responsables sur un chantier.",
+      "Lors de mon prochain projet, j’essaierai de choisir des matériaux plus écologiques.",
+      "Je vais faire attention à l’impact environnemental de mes choix de construction."
+    ],
+    "labels": [
+      "Pas du tout d’accord",
+      "Plutôt pas d’accord",
+      "Un peu pas d’accord",
+      "Neutre",
+      "Un peu d’accord",
+      "Plutôt d’accord",
+      "Tout à fait d’accord"
+    ]
   }
 }
