@@ -31,8 +31,8 @@ export async function GET(request: Request) {
   const usersCollection = db.collection("users");
 
   try {
-    const { searchParams } = new URL(request.url);
-    const userId = searchParams.get('userId') || session.user.sub;
+    // Toujours utiliser l'identifiant Auth0 pour les utilisateurs authentifiés
+    const userId = session.user.sub;
 
     const user = await usersCollection.findOne({ userId });
 
@@ -47,7 +47,7 @@ export async function GET(request: Request) {
         ofA: user.ofA || '',             
         gender: user.gender || '',       
         age: user.age || null,
-        userId: user.userId || session.user.sub
+        userId: session.user.sub // Toujours retourner l'identifiant Auth0
       });
     } else {
       return NextResponse.json({ 
@@ -60,7 +60,7 @@ export async function GET(request: Request) {
         ofA: '', 
         gender: '', 
         age: null,
-        userId: session.user.sub
+        userId: session.user.sub // Toujours retourner l'identifiant Auth0
       });
     }
   } catch (error) {
@@ -71,10 +71,11 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
   try {
-    const { firstName, lastName, role, ofA, gender, age, isCompleted, userId: existingUserId } = await request.json();
+    const session = await getSession();
+    const { firstName, lastName, role, ofA, gender, age, isCompleted } = await request.json();
     
-    // Utiliser le userId existant ou en générer un nouveau
-    const userId = existingUserId || uuidv4();
+    // Utiliser l'identifiant Auth0 si l'utilisateur est authentifié, sinon générer un UUID
+    const userId = session?.user?.sub || uuidv4();
 
     const client = await clientPromise;
     const db = client.db("questionnaires");

@@ -1,14 +1,23 @@
 import { NextResponse } from 'next/server';
 import clientPromise from '@/lib/mongodb';
+import { getSession } from '@auth0/nextjs-auth0';
 
 // Méthode POST pour enregistrer les réponses
 export async function POST(request: Request) {
   try {
+    const session = await getSession();
+    const { moods, questionnaireId } = await request.json();
+    
+    // Utiliser l'identifiant Auth0 si l'utilisateur est authentifié
+    const userId = session?.user?.sub;
+
+    if (!userId) {
+      return NextResponse.json({ error: 'Utilisateur non authentifié' }, { status: 401 });
+    }
+
     const client = await clientPromise;
     const db = client.db("questionnaires");
     
-    const { moods, userId, questionnaireId } = await request.json(); // Récupération des données du corps de la requête
-
     // Vérifiez d'abord si une réponse existe déjà
     const existingAnswer = await db.collection("answers").findOne({ userId, questionnaireId });
     if (existingAnswer) {
@@ -32,12 +41,18 @@ export async function POST(request: Request) {
 // Méthode GET pour récupérer les réponses
 export async function GET(request: Request) {
   try {
+    const session = await getSession();
+    const userId = session?.user?.sub;
+
+    if (!userId) {
+      return NextResponse.json({ error: 'Utilisateur non authentifié' }, { status: 401 });
+    }
+
     const client = await clientPromise;
     const db = client.db("questionnaires");
 
     const { searchParams } = new URL(request.url);
     const questionnaireId = searchParams.get('questionnaireId');
-    const userId = searchParams.get('userId');
 
     // Recherche d'une réponse correspondant au questionnaireId et userId
     const answer = await db.collection("answers").findOne({ questionnaireId, userId });
