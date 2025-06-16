@@ -144,7 +144,7 @@ const ClientHome: React.FC<{ userId: string }> = ({ userId }) => {
               <h2 className="text-lg mt-1 font-semibold text-center">{q.title}</h2>
               <p className="text-center text-sm text-gray-600">{q.questions.length} questions</p>
               {q.isAnswered && (
-                <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">Répondu</span>
+                <span className="absolute top-2 right-2 bg-green-500 text-white text-xs px-2 py-1 rounded">Répondu ce mois</span>
               )}
             </div>
           </div>

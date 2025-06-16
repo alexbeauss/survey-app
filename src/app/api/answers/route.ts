@@ -35,17 +35,22 @@ export async function GET(request: Request) {
     const client = await clientPromise;
     const db = client.db("questionnaires");
 
-    const { searchParams } = new URL(request.url); // Récupération des paramètres de requête
-    const questionnaireId = searchParams.get('questionnaireId'); // Récupération de questionnaireId
-    const userId = searchParams.get('userId'); // Récupération de userId
+    const { searchParams } = new URL(request.url);
+    const questionnaireId = searchParams.get('questionnaireId');
+    const userId = searchParams.get('userId');
 
     // Recherche d'une réponse correspondant au questionnaireId et userId
     const answer = await db.collection("answers").findOne({ questionnaireId, userId });
 
-    // Si aucune réponse n'est trouvée, définir isAnswered comme false
-    const isAnswered = answer ? answer.isAnswered : false;
+    // Vérifie si une réponse existe et si elle date de moins d'un mois
+    const isAnswered = answer ? (() => {
+      const lastAnswerDate = new Date(answer.updatedAt || answer.createdAt);
+      const oneMonthAgo = new Date();
+      oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+      return lastAnswerDate > oneMonthAgo;
+    })() : false;
 
-    return NextResponse.json({ isAnswered }, { status: 200 }); // Retour de la propriété isAnswered
+    return NextResponse.json({ isAnswered }, { status: 200 });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ error: 'Erreur serveur' }, { status: 500 });

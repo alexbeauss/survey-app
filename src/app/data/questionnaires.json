@@ -1,8 +1,8 @@
 {
   "1": {
-    "title": "Motivations (T0)",
+    "title": "Motivations",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/motivations.jpeg",
     "roles": [
       "Formateur","Pilote projet"
@@ -50,7 +50,7 @@
     ]
   },
   "2": {
-    "title": "Motivations (T0)",
+    "title": "Motivations",
     "startDate": "2024-01-01",
     "endDate": "2025-12-31",
     "icon": "/img/motivations.jpeg",
@@ -84,7 +84,7 @@
     ]
   },
   "3": {
-    "title": "Auto-efficacité (T0)",
+    "title": "Auto-efficacité",
     "startDate": "2024-01-01",
     "endDate": "2025-12-31",
     "icon": "/img/autoefficacite.jpeg",
@@ -120,7 +120,7 @@
     ]
   },
   "4": {
-    "title": "Stress perçu (T0)",
+    "title": "Stress perçu",
     "startDate": "2024-01-01",
     "endDate": "2025-01-31",
     "icon": "/img/stress.jpeg",
@@ -144,9 +144,9 @@
     ]
   },
   "5": {
-    "title": "Contrôle perçu (T0)",
+    "title": "Contrôle perçu",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/controle.jpeg",
     "roles": [
       "Formateur","Pilote projet"
@@ -171,7 +171,7 @@
     ]
   },
   "6": {
-    "title": "Apprenance (T0)",
+    "title": "Apprenance",
     "startDate": "2024-01-01",
     "endDate": "2025-12-31",
     "icon": "/img/apprenance.jpeg",
@@ -200,9 +200,9 @@
     ]
   },
   "7": {
-    "title": "Efficacité collective (T0)",
+    "title": "Efficacité collective",
     "startDate": "2024-01-01",
-    "endDate": "2025-01-31",
+    "endDate": "2025-12-31",
     "icon": "/img/evos.jpeg",
     "roles": [
       "Formateur","Pilote projet"
@@ -326,6 +326,52 @@
       "Un peu d’accord",
       "Plutôt d’accord",
       "Tout à fait d’accord"
+    ]
+  },
+  "11": {
+    "title": "Coping",
+    "startDate": "2024-01-01",
+    "endDate": "2025-12-31",
+    "icon": "/img/stress.jpeg",
+    "roles": [
+      "Apprenant"
+    ],
+    "description": "Cette échelle évalue vos stratégies de coping, c'est à dire la façon dont vous répondez aux situations stressantes.",
+    "consigne": "Pensez à un évènement récent qui vous a particulièrement stressé(e), bouleversé(e), troublé(e) et indiquez pour chacune des stratégies proposées si vous les avez utilisées pour faire face à cet évènement.",
+    "questions": [
+      "J'ai établi un plan d'action et je l'ai suivi.",
+      "J'ai souhaité que la situation disparaisse ou finisse.",
+      "J'ai parlé à quelqu'un de ce que je ressentais.",
+      "Je me suis battu pour ce que je voulais.",
+      "J'ai souhaité pouvoir changer ce qui est arrivé.",
+      "J'ai sollicité l'aide d'un professionnel et j'ai fait ce qu'on m'a conseillé.",
+      "J'ai changé positivement.",
+      "Je me suis senti mal de ne pouvoir éviter le problème.",
+      "J'ai demandé des conseils à une personne digne de respect et je les ai suivis.",
+      "J'ai pris les choses une par une.",
+      "J'ai espéré qu'un miracle se produirait.",
+      "J'ai discuté avec quelqu'un pour en savoir plus au sujet de la situation.",
+      "Je me suis concentré sur un aspect positif qui pourrait apparaître après.",
+      "Je me suis culpabilisé.",
+      "J'ai contenu (gardé pour moi) mes émotions.",
+      "Je suis sorti plus fort de la situation.",
+      "J'ai pensé à des choses irréelles ou fantastiques pour me sentir mieux.",
+      "J'ai parlé avec quelqu'un qui pouvait agir concrètement au sujet du problème.",
+      "J'ai changé des choses pour que tout puisse bien finir.",
+      "J'ai essayé de tout oublier.",
+      "J'ai essayé de ne pas m'isoler.",
+      "J'ai essayé de ne pas agir de manière précipitée ou de suivre la première idée.",
+      "J'ai souhaité pouvoir changer d'attitude.",
+      "J'ai accepté la sympathie et la compréhension de quelqu'un.",
+      "J'ai trouvé une ou deux solutions au problème.",
+      "Je me suis critiqué(e) ou sermonné(e).",
+      "Je savais ce qu'il fallait faire, aussi j'ai redoublé d'efforts et j'ai fait tout mon possible pour y arriver."
+      ],
+    "labels": [
+      "Non",
+      "Plutôt non",
+      "Plutôt oui",
+      "Oui"
     ]
   }
 }

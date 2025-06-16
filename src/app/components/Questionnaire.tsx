@@ -114,7 +114,7 @@ export default function Questionnaire({
     <div className="bg-white dark:bg-gray-800 text-black dark:text-white p-4 rounded-lg">
       {isAnswered ? (
         <p className="text-center text-xl font-semibold">
-          Vous avez répondu à toutes les questions de ce questionnaire.
+          Vous avez répondu à ce questionnaire dans le mois précédent. Vous pourrez le remplir à nouveau dans un mois.
         </p>
       ) : (
         questions.map((question, index) => (
