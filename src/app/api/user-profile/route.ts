@@ -5,7 +5,7 @@ import { getSession } from '@auth0/nextjs-auth0';
 import clientPromise from '@/lib/mongodb';
 import { v4 as uuidv4 } from 'uuid';
 
-export async function GET(request: Request) {
+export async function GET() {
   const session = await getSession();
 
   console.log(session);
