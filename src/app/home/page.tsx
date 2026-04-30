@@ -28,7 +28,7 @@ export default async function Home() {
         <ClientHome userId={userId} />
       </main>
       <footer className="container text-xs mx-auto py-4 text-center text-gray-600 dark:text-gray-400">
-        <p>Une question ? Un problème ? Écrivez à <a href="mailto:support@taline.fr" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">support@taline.app</a></p>
+        <p>Une question ? Un problème ? Écrivez à <a href="mailto:support@taline.fr" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">support@taline.fr</a></p>
       </footer>
     </div>
   );
